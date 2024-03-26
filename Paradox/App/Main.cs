@@ -8,9 +8,11 @@ public class Main : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
+    private World _world;
 
     public Main()
     {
+        _world = new World();
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
@@ -19,13 +21,23 @@ public class Main : Game
     protected override void Initialize()
     {
         // TODO: Add your initialization logic here
+        Singleton.Instance.UISize = new Vector2(1280, 720);
+        
+        _graphics.PreferredBackBufferWidth = (int)Singleton.Instance.UISize.X;
+        _graphics.PreferredBackBufferHeight = (int)Singleton.Instance.UISize.Y;
+        
+        _graphics.ApplyChanges();
+        
 
         base.Initialize();
     }
 
     protected override void LoadContent()
     {
-        _spriteBatch = new SpriteBatch(GraphicsDevice);
+        Singleton.Instance.SpriteBatch = new SpriteBatch(GraphicsDevice);
+        Singleton.Instance.Content = Content;
+        
+        _world.Load();
 
         // TODO: use this.Content to load your game content here
     }
@@ -37,6 +49,9 @@ public class Main : Game
             Exit();
 
         // TODO: Add your update logic here
+        
+        
+        _world.Update(gameTime);
 
         base.Update(gameTime);
     }
@@ -44,8 +59,19 @@ public class Main : Game
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
+        
+        Singleton.Instance.SpriteBatch.Begin();
+        
 
         // TODO: Add your drawing code here
+        
+        
+        
+        _world.Draw(gameTime);
+        
+        
+        
+        Singleton.Instance.SpriteBatch.End();
 
         base.Draw(gameTime);
     }
