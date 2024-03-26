@@ -55,65 +55,64 @@ namespace Paradox
         private const float AnimationDuration = 1.0f; // Duration of one animation loop in seconds
         private GamePadState _previousGamePadState;
 
-    public override void Update(GameTime gameTime)
+public override void Update(GameTime gameTime)
+{
+    
+    // Update the timer with the elapsed game time since last update
+    _timeSinceLastStateChange += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+    // Get the state of the first connected gamepad
+    var gamePadState = GamePad.GetState(PlayerIndex.One);
+
+    // Check if the gamepad is connected before attempting to read it
+    if (gamePadState.IsConnected)
     {
-        // Update the timer with the elapsed game time since last update
-        _timeSinceLastStateChange += (float)gameTime.ElapsedGameTime.TotalSeconds;
+        // Existing logic for handling movement with deadzone implementation
+        float speed = 5.0f; // Adjust the speed as needed
+        float deadzone = 0.0001f; // Define a deadzone threshold
+        float deltaX = gamePadState.ThumbSticks.Left.X * speed;
+        float deltaY = gamePadState.ThumbSticks.Left.Y * speed;
 
-        // Start by assuming the player will be idle, but only reset if the animation duration has passed
-        if (_currentState != _state.walk && _timeSinceLastStateChange >= AnimationDuration)
+        // Check for deadzone
+        if (Math.Abs(deltaX) > deadzone || Math.Abs(deltaY) > deadzone)
         {
-            _currentState = _state.idle;
-            // Do not reset the timer here to allow continuous idle state until an action is performed
-        }
-
-        // Get the state of the first connected gamepad
-        var gamePadState = GamePad.GetState(PlayerIndex.One);
-
-        // Check if the gamepad is connected before attempting to read it
-        if (gamePadState.IsConnected)
-        {
-            // Existing logic for handling movement
-            float speed = 5.0f; // Adjust the speed as needed
-            float deltaX = gamePadState.ThumbSticks.Left.X * speed;
-            float deltaY = gamePadState.ThumbSticks.Left.Y * speed;
-
-            // Update the player's position
+            // Update the player's position with valid input
             _position.X += deltaX;
             _position.Y -= deltaY; // Inverting Y axis
 
-            if (deltaX != 0 || deltaY != 0)
-            {
-                _currentState = _state.walk;
-                // Reset timer since walking is continuous and does not need to wait for animation duration
-                _timeSinceLastStateChange = 0.0f;
-            }
+            _currentState = _state.walk;
+            _timeSinceLastStateChange = 0.0f; // Reset timer for walk state
+            //Console.WriteLine("Walk");
+        }
 
-            // Handle button presses with animation delay
-            if (gamePadState.Buttons.X == ButtonState.Pressed && _timeSinceLastStateChange >= AnimationDuration)
-            {
-                _currentState = _state.attack;
-                _timeSinceLastStateChange = 0.0f;
-                Console.WriteLine("Attack");
-            }
-
-            if (gamePadState.Buttons.B == ButtonState.Pressed && _timeSinceLastStateChange >= AnimationDuration)
-            {
-                _currentState = _state.shield;
-                _timeSinceLastStateChange = 0.0f;
-                Console.WriteLine("Shield");
-            }
-
-            if (gamePadState.Buttons.A == ButtonState.Pressed && _timeSinceLastStateChange >= AnimationDuration)
-            {
-                _currentState = _state.jump;
-                _timeSinceLastStateChange = 0.0f;
-                Console.WriteLine("Jump");
-            }
-            
-            
+        // Handle button presses with animation delay
+        if (gamePadState.Buttons.X == ButtonState.Pressed && _timeSinceLastStateChange >= AnimationDuration)
+        {
+            _currentState = _state.attack;
+            _timeSinceLastStateChange = 0.0f;
+            //Console.WriteLine("Attack");
+        }
+        else if (gamePadState.Buttons.B == ButtonState.Pressed && _timeSinceLastStateChange >= AnimationDuration)
+        {
+            _currentState = _state.shield;
+            _timeSinceLastStateChange = 0.0f;
+        }
+        else if (gamePadState.Buttons.A == ButtonState.Pressed && _timeSinceLastStateChange >= AnimationDuration)
+        {
+            _currentState = _state.jump;
+            _timeSinceLastStateChange = 0.0f;
+            //Console.WriteLine("Jump");
         }
     }
+
+    // If no valid input is detected and enough time has passed, return to idle state
+    if ((_currentState != _state.walk && _timeSinceLastStateChange >= AnimationDuration) || !gamePadState.IsConnected)
+    {
+        _currentState = _state.idle;
+        // Consider whether to reset the timer here based on your animation and state transition needs
+    }
+}
+
 
 
 
@@ -147,6 +146,12 @@ namespace Paradox
                     // Consider logging an error or providing a default case action
                     break;
             }
+        }
+        
+        
+        public Vector2 Position
+        {
+            get { return _position; }
         }
 
     }

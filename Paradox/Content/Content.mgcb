@@ -13,17 +13,7 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Map/.DS_Store
-/importer:
-/processor:
-/build:Map/.DS_Store
-
-#begin Map/Assets/Buildings.aseprite
-/importer:
-/processor:
-/build:Map/Assets/Buildings.aseprite
-
-#begin Map/Assets/Buildings.png
+#begin Map/Map1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -33,14 +23,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Map/Assets/Buildings.png
+/build:Map/Map1.png
 
-#begin Map/Assets/Props-01.aseprite
-/importer:
-/processor:
-/build:Map/Assets/Props-01.aseprite
-
-#begin Map/Assets/Props-01.png
+#begin Map1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -50,182 +35,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Map/Assets/Props-01.png
-
-#begin Map/Assets/Tiles.aseprite
-/importer:
-/processor:
-/build:Map/Assets/Tiles.aseprite
-
-#begin Map/Assets/Tiles.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Map/Assets/Tiles.png
-
-#begin Map/Background/Background Props.aseprite
-/importer:
-/processor:
-/build:Map/Background/Background Props.aseprite
-
-#begin Map/Background/Background Props.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Map/Background/Background Props.png
-
-#begin Map/Background/Base Color.aseprite
-/importer:
-/processor:
-/build:Map/Background/Base Color.aseprite
-
-#begin Map/Background/Base Color.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Map/Background/Base Color.png
-
-#begin Map/Background/Frontal Fog.aseprite
-/importer:
-/processor:
-/build:Map/Background/Frontal Fog.aseprite
-
-#begin Map/Background/Frontal Fog.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Map/Background/Frontal Fog.png
-
-#begin Map/Background/Mid Fog.aseprite
-/importer:
-/processor:
-/build:Map/Background/Mid Fog.aseprite
-
-#begin Map/Background/Mid Fog.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Map/Background/Mid Fog.png
-
-#begin Map/Social/Background Props.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Map/Social/Background Props.png
-
-#begin Map/Social/Background Props.png~
-/importer:
-/processor:
-/build:Map/Social/Background Props.png~
-
-#begin Map/Social/Buildings.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Map/Social/Buildings.png
-
-#begin Map/Social/Buildings.png~
-/importer:
-/processor:
-/build:Map/Social/Buildings.png~
-
-#begin Map/Social/MockUp-01.aseprite
-/importer:
-/processor:
-/build:Map/Social/MockUp-01.aseprite
-
-#begin Map/Social/MockUp-01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Map/Social/MockUp-01.png
-
-#begin Map/Social/Props-01.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Map/Social/Props-01.png
-
-#begin Map/Social/Props-01.png~
-/importer:
-/processor:
-/build:Map/Social/Props-01.png~
-
-#begin Map/Social/Tiles.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Map/Social/Tiles.png
-
-#begin Map/Social/Tiles.png~
-/importer:
-/processor:
-/build:Map/Social/Tiles.png~
-
-#begin Map/v1.tmx
-/importer:
-/processor:
-/build:Map/v1.tmx
+/build:Map1.png
 
 #begin Unit/Player/Samurai/Attack_1.png
 /importer:TextureImporter

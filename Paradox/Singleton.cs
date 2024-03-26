@@ -9,6 +9,7 @@ namespace Paradox
     public class Singleton
     {
         private static Singleton instance;
+        private GraphicsDevice _graphicsDevice;
         private SpriteBatch _spriteBatch;
         private ContentManager _content;
         private GameTime _gameTime;
@@ -22,12 +23,15 @@ namespace Paradox
                 {
                     instance = new Singleton();
                 }
+
                 return instance;
             }
         }
 
         // Private constructor to prevent instance creation
-        private Singleton() { }
+        private Singleton()
+        {
+        }
 
         public SpriteBatch SpriteBatch
         {
@@ -47,8 +51,15 @@ namespace Paradox
             set { _gameTime = value; }
         }
 
+        public GraphicsDevice GraphicsDevice
+        {
+            get { return _graphicsDevice; }
+            set { _graphicsDevice = value; }
+        }
+
         // Static property for UI Size if you need it to be part of the singleton
-        public  Vector2 UISize { get; set; }
+        public Vector2 UISize { get; set; }
+
 
     }
 }

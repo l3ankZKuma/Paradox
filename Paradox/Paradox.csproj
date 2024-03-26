@@ -23,10 +23,14 @@
         <EmbeddedResource Remove="Content\Assets\**" />
     </ItemGroup>
     <ItemGroup>
+        <PackageReference Include="LDtkMonogame" Version="1.2.0" />
+        <PackageReference Include="MonoGame.Extended.Content.Pipeline" Version="3.8.0" />
+        <PackageReference Include="MonoGame.Extended.Tiled" Version="3.8.0" />
         <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303"/>
         <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303"/>
     </ItemGroup>
     <ItemGroup>
+      <Folder Include="Engine\Input\Mouse\" />
       <Folder Include="Engine\Physics\" />
       <Folder Include="Engine\Time\" />
     </ItemGroup>

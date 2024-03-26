@@ -1,25 +1,26 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-
 namespace Paradox
 {
-
     public class Camera
     {
+        private Viewport viewport; // Store the viewport
+        
+
         public Matrix Transform { get; private set; }
         public Vector2 Position { get; set; }
         private float zoom = 1.0f;
         private Rectangle? bounds;
-        private Viewport _viewport;
 
         public Camera(Viewport viewport, Rectangle? bounds = null)
         {
+            this.viewport = viewport; // Store the viewport
             this.bounds = bounds;
-            UpdateMatrix(ref viewport);
+            UpdateMatrix();
         }
 
-        public void UpdateMatrix(ref Viewport viewport)
+        public void UpdateMatrix()
         {
             Transform = Matrix.CreateTranslation(new Vector3(-Position.X, -Position.Y, 0)) *
                         Matrix.CreateScale(zoom) *
@@ -31,17 +32,16 @@ namespace Paradox
         {
             if (!bounds.HasValue) return;
 
-            var cameraMax = new Vector2(bounds.Value.X + bounds.Value.Width - (_viewport.Width / zoom),
-                bounds.Value.Y + bounds.Value.Height - (_viewport.Height / zoom));
+            var cameraMax = new Vector2(bounds.Value.X + bounds.Value.Width - (viewport.Width / zoom),
+                bounds.Value.Y + bounds.Value.Height - (viewport.Height / zoom));
 
             Position = Vector2.Clamp(Position, new Vector2(bounds.Value.X, bounds.Value.Y), cameraMax);
         }
 
         public void Follow(Vector2 target)
         {
-            Position = target;
-            // Here you can implement logic to smoothly follow the target instead of snapping to it
+            Position = target - new Vector2(viewport.Width / 2, viewport.Height / 2);
+            ClampToBounds();
         }
     }
-
 }

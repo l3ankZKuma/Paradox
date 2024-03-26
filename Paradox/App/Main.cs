@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -9,6 +10,7 @@ public class Main : Game
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
     private World _world;
+    private Camera _camera;
 
     public Main()
     {
@@ -20,6 +22,9 @@ public class Main : Game
 
     protected override void Initialize()
     {
+        _camera = new Camera(GraphicsDevice.Viewport);
+        
+        
         // TODO: Add your initialization logic here
         Singleton.Instance.UISize = new Vector2(1280, 720);
         
@@ -49,9 +54,11 @@ public class Main : Game
             Exit();
 
         // TODO: Add your update logic here
-        
+        Console.WriteLine("({0} , {1} ) ", Mouse.GetState().X, Mouse.GetState().Y);
         
         _world.Update(gameTime);
+        _camera.Follow(_world.GetPlayerPosition());
+        
 
         base.Update(gameTime);
     }

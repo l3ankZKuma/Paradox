@@ -7,43 +7,42 @@ using System.Text;
 
 namespace Paradox
 {
-    public class TilemapManager
+    public class TileMapManager
     {
-        
+        private SpriteBatch spriteBatch;
         TmxMap map;
         Texture2D tileset;
-        RenderTarget2D renderTarget;
-       
         int tilesetTilesWide;
         int tileWidth;
         int tileHeight;
 
-        public TilemapManager(TmxMap _map, Texture2D _tileset, int _tilesetTilesWide, int _tileWidth, int _tileHeight,GraphicsDevice graphicsDevice,SpriteBatch spriteBatch)
+        public TileMapManager(SpriteBatch _spriteBatch,TmxMap _map, Texture2D _tileset,int _tilesetTilesWide, int _tileWidth,int _tileHeight)
 
         {
-            
+            spriteBatch = _spriteBatch;
             map = _map;
             tileset = _tileset;
             tilesetTilesWide = _tilesetTilesWide;
             tileWidth = _tileWidth;
             tileHeight = _tileHeight;
-            
-
-            renderTarget=new RenderTarget2D(graphicsDevice, 1420, 720);
-            DrawTilemap(graphicsDevice,spriteBatch);
         }
 
-        public void DrawTilemap(GraphicsDevice graphicsDevice,SpriteBatch spriteBatch)
+        public void Draw(Matrix matrix)
         {
-            graphicsDevice.SetRenderTarget(renderTarget); 
-            graphicsDevice.Clear(Color.White);
-            spriteBatch.Begin();
-            for (var i = 0; i < map.TileLayers.Count; i++)
+            spriteBatch.Begin(//All of these need to be here :(
+                SpriteSortMode.Deferred,
+                samplerState: SamplerState.PointClamp,
+                effect: null,
+                blendState: null,
+                rasterizerState: null,
+                depthStencilState: null,
+                transformMatrix: matrix/*<-This is the main thing*/);
+            for (var i=0;i<map.TileLayers.Count;i++)
             {
-                for (var j = 0; j < map.TileLayers[i].Tiles.Count; j++)
+                for(var j=0;j<map.TileLayers[i].Tiles.Count;j++)
                 {
                     int gid = map.TileLayers[i].Tiles[j].Gid;
-                    if (gid == 0)
+                    if(gid==0)
                     {
                         //do nothing
                     }
@@ -55,21 +54,11 @@ namespace Paradox
                         float x = (j % map.Width) * map.TileWidth;
                         float y = (float)Math.Floor(j / (double)map.Width) * map.TileHeight;
                         Rectangle tilesetRec = new Rectangle((tileWidth) * column, (tileHeight) * row, tileWidth, tileHeight);
-                        spriteBatch.Draw(tileset, new Rectangle((int)x, (int)y, tileWidth, tileHeight), tilesetRec, Color.White);
+                        spriteBatch.Draw(tileset,new Rectangle((int)x,(int)y,tileWidth,tileHeight),tilesetRec,Color.White);
                     }
                 }
             }
             spriteBatch.End();
-            graphicsDevice.SetRenderTarget(null);
-
         }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-
-            spriteBatch.Draw(renderTarget, new Vector2(0, 0), Color.White);
-
-        }
-
     }
 }
