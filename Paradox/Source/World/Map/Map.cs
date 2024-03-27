@@ -16,7 +16,10 @@ namespace Paradox
 
         public void Load()
         {
-            _mapList.Add(Singleton.Instance.Content.Load<Texture2D>("Map/Map1"));
+            for(int i=1;i<=4;i++)
+            {
+                _mapList.Add(Singleton.Instance.Content.Load<Texture2D>("Map/Map" + i));
+            }
 
         }
 
@@ -29,7 +32,7 @@ namespace Paradox
         {
             for(int i=0;i<_mapList.Count;i++)
             {
-                Singleton.Instance.SpriteBatch.Draw(_mapList[i], new Vector2(0, 0), Color.White);
+                Singleton.Instance.SpriteBatch.Draw(_mapList[i], new Vector2(i*1280, 0), Color.White);
             }
         }
     }

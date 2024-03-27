@@ -1,47 +1,41 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Paradox
+public class Camera
 {
-    public class Camera
+    public Matrix ViewMatrix;
+    private Vector2 _position;
+    private Viewport _viewport;
+
+    public Camera(Viewport viewport)
     {
-        private Viewport viewport; // Store the viewport
-        
+        _viewport = viewport;
+        UpdateViewMatrix();
+    }
 
-        public Matrix Transform { get; private set; }
-        public Vector2 Position { get; set; }
-        private float zoom = 1.0f;
-        private Rectangle? bounds;
+    public void Follow(Vector2 targetPosition, float lerpFactor = 0.1f)
+    {
+        // Calculate the desired x position to follow the target, maintaining the centering effect.
+        float desiredX = targetPosition.X - _viewport.Width / 2f;
+    
+        // Linearly interpolates between the current x position and the desired x position based on the lerpFactor.
+        _position.X = MathHelper.Lerp(_position.X, desiredX, lerpFactor);
 
-        public Camera(Viewport viewport, Rectangle? bounds = null)
-        {
-            this.viewport = viewport; // Store the viewport
-            this.bounds = bounds;
-            UpdateMatrix();
-        }
+        // Ensure the x-position is always greater than or equal to 0.
+        _position.X = Math.Max(_position.X, 0);
 
-        public void UpdateMatrix()
-        {
-            Transform = Matrix.CreateTranslation(new Vector3(-Position.X, -Position.Y, 0)) *
-                        Matrix.CreateScale(zoom) *
-                        Matrix.CreateTranslation(new Vector3(viewport.Width * 0.5f, viewport.Height * 0.5f, 0));
-            ClampToBounds();
-        }
+        // y-position remains unchanged, meaning it's fixed to whatever value it was set to initially or otherwise.
+    
+        UpdateViewMatrix();
+    }
 
-        private void ClampToBounds()
-        {
-            if (!bounds.HasValue) return;
 
-            var cameraMax = new Vector2(bounds.Value.X + bounds.Value.Width - (viewport.Width / zoom),
-                bounds.Value.Y + bounds.Value.Height - (viewport.Height / zoom));
 
-            Position = Vector2.Clamp(Position, new Vector2(bounds.Value.X, bounds.Value.Y), cameraMax);
-        }
 
-        public void Follow(Vector2 target)
-        {
-            Position = target - new Vector2(viewport.Width / 2, viewport.Height / 2);
-            ClampToBounds();
-        }
+
+    private void UpdateViewMatrix()
+    {
+        ViewMatrix = Matrix.CreateTranslation(new Vector3(-_position, 0));
     }
 }

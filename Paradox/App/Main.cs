@@ -3,83 +3,65 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Paradox;
-
-public class Main : Game
+namespace Paradox
 {
-    private GraphicsDeviceManager _graphics;
-    private SpriteBatch _spriteBatch;
-    private World _world;
-    private Camera _camera;
-
-    public Main()
+    public class Main : Game
     {
-        _world = new World();
-        _graphics = new GraphicsDeviceManager(this);
-        Content.RootDirectory = "Content";
-        IsMouseVisible = true;
-    }
+        private GraphicsDeviceManager _graphics;
+        private SpriteBatch _spriteBatch;
+        private World _world;
+        private Camera _camera;
 
-    protected override void Initialize()
-    {
-        _camera = new Camera(GraphicsDevice.Viewport);
-        
-        
-        // TODO: Add your initialization logic here
-        Singleton.Instance.UISize = new Vector2(1280, 720);
-        
-        _graphics.PreferredBackBufferWidth = (int)Singleton.Instance.UISize.X;
-        _graphics.PreferredBackBufferHeight = (int)Singleton.Instance.UISize.Y;
-        
-        _graphics.ApplyChanges();
-        
+        public Main()
+        {
+            _graphics = new GraphicsDeviceManager(this);
+            Content.RootDirectory = "Content";
+            IsMouseVisible = true;
+        }
 
-        base.Initialize();
-    }
+        protected override void Initialize()
+        {
+            _world = new World();
+            _camera = new Camera(GraphicsDevice.Viewport);
+            Singleton.Instance.GameTime = new GameTime();
 
-    protected override void LoadContent()
-    {
-        Singleton.Instance.SpriteBatch = new SpriteBatch(GraphicsDevice);
-        Singleton.Instance.Content = Content;
-        
-        _world.Load();
+            Singleton.Instance.UISize = new Vector2(1280, 720);
+            _graphics.PreferredBackBufferWidth = (int)Singleton.Instance.UISize.X;
+            _graphics.PreferredBackBufferHeight = (int)Singleton.Instance.UISize.Y;
+            _graphics.ApplyChanges();
 
-        // TODO: use this.Content to load your game content here
-    }
+            base.Initialize();
+        }
 
-    protected override void Update(GameTime gameTime)
-    {
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
-            Keyboard.GetState().IsKeyDown(Keys.Escape))
-            Exit();
+        protected override void LoadContent()
+        {
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            Singleton.Instance.SpriteBatch = _spriteBatch;
+            Singleton.Instance.Content = Content;
 
-        // TODO: Add your update logic here
-        Console.WriteLine("({0} , {1} ) ", Mouse.GetState().X, Mouse.GetState().Y);
-        
-        _world.Update(gameTime);
-        _camera.Follow(_world.GetPlayerPosition());
-        
+            _world.Load();
+        }
 
-        base.Update(gameTime);
-    }
+        protected override void Update(GameTime gameTime)
+        {
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                Exit();
 
-    protected override void Draw(GameTime gameTime)
-    {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
-        
-        Singleton.Instance.SpriteBatch.Begin();
-        
+            _camera.Follow(_world.GetPlayerPosition());
+            _world.Update(gameTime);
 
-        // TODO: Add your drawing code here
-        
-        
-        
-        _world.Draw(gameTime);
-        
-        
-        
-        Singleton.Instance.SpriteBatch.End();
+            base.Update(gameTime);
+        }
 
-        base.Draw(gameTime);
+        protected override void Draw(GameTime gameTime)
+        {
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            _spriteBatch.Begin(transformMatrix: _camera.ViewMatrix);
+            _world.Draw(gameTime);
+            _spriteBatch.End();
+
+            base.Draw(gameTime);
+        }
     }
 }

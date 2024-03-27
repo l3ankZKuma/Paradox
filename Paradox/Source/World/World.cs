@@ -44,5 +44,7 @@ namespace Paradox
         {
             return _player.Position;
         }
+
+    
     }
 }
