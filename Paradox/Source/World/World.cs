@@ -81,7 +81,7 @@ namespace Paradox
         {
             _enemies.Add(new Enemy_1(new Vector2(190,578-110),new Vector2(300,578-110)));
             _enemies.Add(new Enemy_2(new Vector2(254,276),new Vector2(270,276)));
-            
+            _enemies.Add(new Enemy_3(new Vector2(1000,583-120),new Vector2(1200,583-120)));
 
         }
 

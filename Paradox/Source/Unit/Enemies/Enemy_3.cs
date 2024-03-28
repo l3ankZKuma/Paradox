@@ -31,6 +31,9 @@ namespace Paradox
             
             _enemyAnimation = new Animation[]
             {
+                new Animation(_sprite[0], 128, 128),
+                new Animation(_sprite[1], 128, 128),
+                new Animation(_sprite[2], 128, 128),
 
             };
             

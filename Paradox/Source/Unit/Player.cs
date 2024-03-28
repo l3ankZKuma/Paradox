@@ -115,7 +115,7 @@ namespace Paradox
                 _velocity.Y += Gravity * deltaTime;
             }
 
-            _position            += _velocity * deltaTime; // Update position based on velocity
+            _position+= _velocity * deltaTime; // Update position based on velocity
 
             // Ground check
             if (_isOnGround)
