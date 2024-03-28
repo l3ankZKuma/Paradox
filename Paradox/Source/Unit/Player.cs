@@ -94,13 +94,11 @@ namespace Paradox
             float speed = 5.0f; // Movement speed
             float deadzone = 0.05f; // Increased deadzone for clearer intent
             float deltaX = gamePadState.ThumbSticks.Left.X * speed;
-            float deltaY = gamePadState.ThumbSticks.Left.Y * speed;
 
             // Movement input
-            if (Math.Abs(deltaX) > deadzone || Math.Abs(deltaY) > deadzone)
+            if (Math.Abs(deltaX) > deadzone )
             {
                 _position.X += deltaX;
-                _position.Y -= deltaY; // Inverting Y axis
 
                 if (!_currentState.Equals(_state.attack) && !_currentState.Equals(_state.jump))
                 {
@@ -130,7 +128,7 @@ namespace Paradox
             }
 
             // Optionally, reset to idle state if no input is detected
-            if (Math.Abs(deltaX) <= deadzone && Math.Abs(deltaY) <= deadzone && !_currentState.Equals(_state.jump) && !_currentState.Equals(_state.attack))
+            if (Math.Abs(deltaX) <= deadzone  && !_currentState.Equals(_state.jump) && !_currentState.Equals(_state.attack))
             {
                 _currentState = _state.idle;
             }
@@ -186,34 +184,10 @@ namespace Paradox
 
         public override void Draw(GameTime gameTime)
         {
-            // Use the current state to determine which animation to draw
-            switch (_currentState)
-            {
-                case _state.idle:
-                    _playerAnimation[0].Draw(_position, gameTime); // Idle animation
-                    break;
-                case _state.walk:
-                    _playerAnimation[1].Draw(_position, gameTime); // Walk animation
-                    break;
-                case _state.jump:
-                    _playerAnimation[2].Draw(_position, gameTime); // Jump animation
-                    break;
-                case _state.shield:
-                    _playerAnimation[3].Draw(_position, gameTime); // Shield animation
-                    break;
-                case _state.attack:
-                    _playerAnimation[4].Draw(_position, gameTime); // Attack animation
-                    break;
-                case _state.dead:
-                    _playerAnimation[5].Draw(_position, gameTime); // Dead animation
-                    break;
-                case _state.hurt:
-                    _playerAnimation[6].Draw(_position, gameTime); // Hurt animation
-                    break;
-                default:
-                    // Consider logging an error or providing a default case action
-                    break;
-            }
+            
+            _playerAnimation[(int)_currentState].Draw(_position, gameTime);
+           
+            
         }
         
         
