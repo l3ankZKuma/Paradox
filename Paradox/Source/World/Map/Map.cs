@@ -16,7 +16,7 @@ namespace Paradox
 
         public void Load()
         {
-            for(int i=1;i<=4;i++)
+            for(int i=1;i<=10;i++)
             {
                 _mapList.Add(Singleton.Instance.Content.Load<Texture2D>("Map/Map" + i));
             }

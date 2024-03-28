@@ -15,12 +15,18 @@
         <None Remove="Icon.bmp"/>
         <None Remove="Assets\**" />
         <None Remove="Content\Assets\**" />
+        <None Remove="Content\Map\Map1.png" />
+        <None Remove="Content\Map\Map2.png" />
+        <None Remove="Content\Map\Map3.png" />
+        <None Remove="Content\Map\Map4.png" />
+        <None Remove="Content\Map\**" />
     </ItemGroup>
     <ItemGroup>
         <EmbeddedResource Include="Icon.ico"/>
         <EmbeddedResource Include="Icon.bmp"/>
         <EmbeddedResource Remove="Assets\**" />
         <EmbeddedResource Remove="Content\Assets\**" />
+        <EmbeddedResource Remove="Content\Map\**" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="LDtkMonogame" Version="1.2.0" />
@@ -36,6 +42,7 @@
     <ItemGroup>
       <Compile Remove="Assets\**" />
       <Compile Remove="Content\Assets\**" />
+      <Compile Remove="Content\Map\**" />
     </ItemGroup>
     <ItemGroup>
       <Content Include="TiledSharp\TiledSharp.csproj" />

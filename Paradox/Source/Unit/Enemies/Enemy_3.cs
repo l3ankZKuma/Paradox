@@ -11,7 +11,7 @@ namespace Paradox
         {
             PATH = new string[]
             {
-                "1/Idle", "1/Walk","1/Attack"
+                "3/Walk_3", "3/Walk_3","3/Attack_3"
             };
             _position=patrolFrom;
             

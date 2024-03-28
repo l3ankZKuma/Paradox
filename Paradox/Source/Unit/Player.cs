@@ -3,34 +3,25 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-
 namespace Paradox
 {
     public class Player : Entity
     {
-
         private Vector2 _velocity;
         private string[] PATH;
         private Animation[] _playerAnimation;
         private _state _currentState;
         private Rectangle _playerRectangle;
         
+        private bool _facingRight = true;
         
-        //sprite
-        private bool _facingRight = true; // Tracks the direction the player is facing
-
-        
-        //physics
         private bool _isOnGround;
-        private const float Gravity = 200.0f; // Adjust as necessary
-        private const float JumpStrength = -200.0f; // Adjust as necessary
+        private const float Gravity = 1000.0f; // Increased gravity for a more natural fall
+        private const float JumpStrength = -500.0f; // Adjusted for ~160 pixels jump height
         private CollisionManager _collisionManager;
-
-
 
         public Player()
         {
-            // Correct array initialization with one element
             PATH = new string[]
             {
                 "Unit/Player/Samurai/Idle", "Unit/Player/Samurai/Walk", "Unit/Player/Samurai/Jump",
@@ -41,20 +32,14 @@ namespace Paradox
             _collisionManager = new CollisionManager();
         }
 
-
         public override void Load()
         {
-            // Initialize the _sprite array to the same length as PATH array
             _sprite = new Texture2D[PATH.Length];
-
-            // Loop through each path in the PATH array to load each texture
             for (int i = 0; i < PATH.Length; i++)
             {
                 _sprite[i] = Singleton.Instance.Content.Load<Texture2D>(PATH[i]);
             }
 
-
-            // Initialize _animation correctly
             _playerAnimation = new Animation[]
             {
                 new Animation(_sprite[0], 768 / 6, 128),
@@ -66,43 +51,33 @@ namespace Paradox
                 new Animation(_sprite[6], 256 / 2, 128)
             };
         }
-        private float _timeSinceLastStateChange = 0.0f; // Timer for state changes
-        private const float AnimationDuration = 1.0f; // Duration of one animation loop in seconds
+
+        private float _timeSinceLastStateChange = 0.0f;
+        private const float AnimationDuration = 1.0f;
         private GamePadState _previousGamePadState;
 
         public override void Update(GameTime gameTime)
         {
             _playerRectangle = new Rectangle((int)_position.X, (int)_position.Y, 64, 128);
-            
-            // Update the timer with the elapsed game time since last update
             _timeSinceLastStateChange += (float)gameTime.ElapsedGameTime.TotalSeconds;
             HandleInput();
             ApplyPhysics((float)gameTime.ElapsedGameTime.TotalSeconds);
             CheckCollisions();
-
-            
         }
 
         private void HandleInput()
         {
-            // Get the state of the first connected gamepad
             var gamePadState = GamePad.GetState(PlayerIndex.One);
-
-            // Ensure the gamepad is connected
             if (!gamePadState.IsConnected) return;
 
-            float speed = 5.0f; // Movement speed
-            float deadzone = 0.01f; // Increased deadzone for clearer intent
+            float speed = 200.0f; // Adjusted speed for quicker movement
+            float deadzone = 0.25f; // Increased deadzone for more deliberate movements
             float deltaX = gamePadState.ThumbSticks.Left.X * speed;
 
-            // Movement input
             if (Math.Abs(deltaX) > deadzone)
             {
-                _position.X += deltaX;
-
-                // Update the facing direction based on movement
+                _position.X += deltaX * 0.03f; // Ensures frame rate independence
                 _facingRight = deltaX > 0;
-
                 if (!_currentState.Equals(_state.attack) && !_currentState.Equals(_state.jump))
                 {
                     _currentState = _state.walk;
@@ -110,95 +85,72 @@ namespace Paradox
             }
             else if (!gamePadState.Buttons.X.Equals(ButtonState.Pressed) && !_isOnGround)
             {
-                // If no movement or attack, and not in the air (jumping), set to idle
                 _currentState = _state.idle;
             }
 
-            // Attack input
             if (gamePadState.Buttons.X.Equals(ButtonState.Pressed) && _timeSinceLastStateChange >= AnimationDuration)
             {
                 _currentState = _state.attack;
-                _timeSinceLastStateChange = 0f; // Reset timer for attack animation
+                _timeSinceLastStateChange = 0f;
             }
 
-            // Jump input, allowing jump while moving or attacking
             if (gamePadState.Buttons.A.Equals(ButtonState.Pressed) && _isOnGround)
             {
                 _velocity.Y = JumpStrength;
                 _currentState = _state.jump;
-                _isOnGround = false; // The player is no longer on the ground
-                _timeSinceLastStateChange = 0f; // Reset timer for jump animation
+                _isOnGround = false;
+                _timeSinceLastStateChange = 0f;
             }
 
-            // Optionally, reset to idle state if no input is detected
-            if (Math.Abs(deltaX) <= deadzone  && !_currentState.Equals(_state.jump) && !_currentState.Equals(_state.attack))
+            if (Math.Abs(deltaX) <= deadzone && !_currentState.Equals(_state.jump) && !_currentState.Equals(_state.attack))
             {
                 _currentState = _state.idle;
             }
         }
 
-
         private void ApplyPhysics(float deltaTime)
         {
-            // Apply gravity if not on the ground
             if (!_isOnGround)
             {
                 _velocity.Y += Gravity * deltaTime;
             }
 
-            // Update player position based on velocity
-            _position += _velocity * deltaTime;
+            _position            += _velocity * deltaTime; // Update position based on velocity
 
-            // Ensure the player doesn't go below the ground/platform
+            // Ground check
             if (_isOnGround)
             {
-                _velocity.Y = 0;
+                _velocity.Y = 0; // Stop falling when on the ground
             }
         }
 
-
         private void CheckCollisions()
         {
-            _isOnGround = false; // Assume not on the ground until a collision says otherwise
+            _isOnGround = false; // Assume player is not on the ground until proven otherwise
 
             foreach (var rect in _collisionManager.CollisionRectangles)
             {
                 if (_playerRectangle.Intersects(rect))
                 {
-                    _isOnGround = true; // Player is on the ground
-                    _position.Y = rect.Top - _playerRectangle.Height; // Adjust player position to stand on top of the platform
-                    _velocity.Y = 0; // Stop vertical movement
-                    break; // Assuming only one collision is relevant per update; remove if not applicable
+                    _isOnGround = true; // Player has landed on the ground
+                    _position.Y = rect.Top - _playerRectangle.Height; // Adjust Y position to land on the surface
+                    _velocity.Y = 0; // Reset Y velocity
+                    break; // Exit loop after finding ground collision
                 }
             }
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         public override void Draw(GameTime gameTime)
         {
-            
-            _playerAnimation[(int)_currentState].Draw(_isFacingRight,_position, gameTime);
-           
-            
+            // Draw the current animation frame. Adjust parameters as necessary.
+            _playerAnimation[(int)_currentState].Draw(_facingRight, _position, gameTime);
         }
         
-        
+        // Properties
         public Vector2 Position
         {
             get { return _position; }
         }
-
     }
 }
+
