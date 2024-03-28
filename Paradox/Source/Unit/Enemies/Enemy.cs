@@ -21,7 +21,6 @@ namespace Paradox
         protected Rectangle _enemyRectangle;
 
         // Adding more properties for AI behavior
-        protected Player _player; // Assuming there's a Player class to interact with
         protected float _detectionRange = 250f; // Range within which enemy detects the player
         protected float _attackRange = 50f; // Range within which enemy can attack
         protected Vector2 _patrolFrom;
@@ -29,10 +28,6 @@ namespace Paradox
         protected float _patrolSpeed = 60f;
         protected bool _patrollingTo = true; // Direction of patrol
 
-        // Physics
-        protected bool _isOnGround;
-        protected const float Gravity = 200.0f;
-        protected const float JumpStrength = -200.0f;
         protected CollisionManager _collisionManager;
 
         public Enemy(Vector2 patrolFrom, Vector2 patrolTo)
@@ -46,6 +41,7 @@ namespace Paradox
             _collisionManager = new CollisionManager();
             _currentState = _enemyState.Idle;
             // Initialize animations and other loading logic here
+            
         }
 
         public override void Update(GameTime gameTime)
@@ -66,16 +62,14 @@ namespace Paradox
             }
 
             // Basic gravity implementation
-            _velocity.Y += Gravity * deltaTime;
-            _position += _velocity * deltaTime;
-            _enemyRectangle = new Rectangle((int)_position.X, (int)_position.Y, 128,128); // Assuming _texture represents current sprite
+            _enemyRectangle = new Rectangle((int)_position.X, (int)_position.Y, 128,64); // Assuming _texture represents current sprite
 
             // Implement collision detection with the ground here to update _isOnGround
         }
 
         protected void UpdateIdleState(float deltaTime)
         {
-            if (Vector2.Distance(_position, _player.Position) <= _detectionRange)
+            if (Vector2.Distance(_position, Singleton.Instance.PlayerPos) <= _detectionRange)
             {
                 _currentState = _enemyState.Walk;
             }
@@ -85,42 +79,59 @@ namespace Paradox
                 if (_patrollingTo)
                 {
                     if (_position.X < _patrolTo.X)
+                    {
                         _position.X += _patrolSpeed * deltaTime;
+                        _isFacingRight = true; // Facing towards patrolTo
+                    }
                     else
+                    {
                         _patrollingTo = false;
+                    }
                 }
                 else
                 {
                     if (_position.X > _patrolFrom.X)
+                    {
                         _position.X -= _patrolSpeed * deltaTime;
+                        _isFacingRight = false; // Facing towards patrolFrom
+                    }
                     else
+                    {
                         _patrollingTo = true;
+                    }
                 }
             }
         }
 
+
         protected void UpdateWalkState(float deltaTime)
         {
-            if (Vector2.Distance(_position, _player.Position) > _detectionRange)
+            float distanceToPlayer = Vector2.Distance(_position, Singleton.Instance.PlayerPos);
+
+            if (distanceToPlayer > _detectionRange)
             {
                 _currentState = _enemyState.Idle;
             }
-            else if (Vector2.Distance(_position, _player.Position) <= _attackRange)
+            else if (distanceToPlayer <= _attackRange)
             {
                 _currentState = _enemyState.Attack;
             }
             else
             {
-                // Move towards player
-                Vector2 direction = Vector2.Normalize(_player.Position - _position);
-                _position += direction * _patrolSpeed * deltaTime;
+                Vector2 direction = Vector2.Normalize(Singleton.Instance.PlayerPos - _position);
+                _position.X += direction.X * _patrolSpeed * deltaTime;
+
+                // Update facing direction based on player's position
+                _isFacingRight = direction.X > 0;
             }
         }
+
+
 
         protected void UpdateAttackState(float deltaTime)
         {
             // Implement attack logic here, could be an animation trigger and damage logic
-            if (Vector2.Distance(_position, _player.Position) > _attackRange)
+            if (Vector2.Distance(_position, Singleton.Instance.PlayerPos) > _attackRange)
             {
                 _currentState = _enemyState.Walk;
             }
@@ -128,11 +139,7 @@ namespace Paradox
 
         public override void Draw(GameTime gameTime)
         {
-            if (_enemyAnimation != null && _enemyAnimation[(int)_currentState] != null)
-            {
-                
-                _enemyAnimation[(int)_currentState].Draw(_position, gameTime);
-            }
+            _enemyAnimation[(int)_currentState].Draw(_isFacingRight,_position,gameTime);
         }
 
     }

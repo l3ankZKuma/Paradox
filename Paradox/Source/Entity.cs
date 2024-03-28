@@ -19,6 +19,8 @@ namespace Paradox
         protected Texture2D[] _sprite;
         protected Vector2 _position;
         
+        protected bool _isFacingRight=true;
+        
         
         public abstract void Update(GameTime gameTime);
         public abstract void Draw(GameTime gameTime);

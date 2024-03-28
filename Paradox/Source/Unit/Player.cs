@@ -92,13 +92,16 @@ namespace Paradox
             if (!gamePadState.IsConnected) return;
 
             float speed = 5.0f; // Movement speed
-            float deadzone = 0.05f; // Increased deadzone for clearer intent
+            float deadzone = 0.01f; // Increased deadzone for clearer intent
             float deltaX = gamePadState.ThumbSticks.Left.X * speed;
 
             // Movement input
-            if (Math.Abs(deltaX) > deadzone )
+            if (Math.Abs(deltaX) > deadzone)
             {
                 _position.X += deltaX;
+
+                // Update the facing direction based on movement
+                _facingRight = deltaX > 0;
 
                 if (!_currentState.Equals(_state.attack) && !_currentState.Equals(_state.jump))
                 {
@@ -133,6 +136,7 @@ namespace Paradox
                 _currentState = _state.idle;
             }
         }
+
 
         private void ApplyPhysics(float deltaTime)
         {
@@ -185,7 +189,7 @@ namespace Paradox
         public override void Draw(GameTime gameTime)
         {
             
-            _playerAnimation[(int)_currentState].Draw(_position, gameTime);
+            _playerAnimation[(int)_currentState].Draw(_isFacingRight,_position, gameTime);
            
             
         }

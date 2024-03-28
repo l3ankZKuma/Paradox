@@ -4,14 +4,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Paradox
 {
-    class Enemy_1 : Enemy
+    class Enemy_2 : Enemy
     {
 
-        public Enemy_1(Vector2 patrolFrom, Vector2 patrolTo) : base(patrolFrom,patrolTo)
+        public Enemy_2(Vector2 patrolFrom, Vector2 patrolTo) : base(patrolFrom,patrolTo)
         {
             PATH = new string[]
             {
-                "1/Idle", "1/Walk","1/Attack"
+                "2/Walk_2", "2/Walk_2","2/Attack_2 "
             };
             _position=patrolFrom;
             

@@ -14,6 +14,8 @@ namespace Paradox
         private ContentManager _content;
         private GameTime _gameTime;
 
+        private Vector2 _playerPos;
+
         // Static property to get the instance
         public static Singleton Instance
         {
@@ -55,6 +57,11 @@ namespace Paradox
         {
             get { return _graphicsDevice; }
             set { _graphicsDevice = value; }
+        }
+        
+        public Vector2 PlayerPos{
+            get { return _playerPos; }
+            set { _playerPos = value; }
         }
 
         // Static property for UI Size if you need it to be part of the singleton

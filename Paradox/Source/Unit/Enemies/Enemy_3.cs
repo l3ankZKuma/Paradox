@@ -4,10 +4,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Paradox
 {
-    class Enemy_1 : Enemy
+    class Enemy_3 : Enemy
     {
 
-        public Enemy_1(Vector2 patrolFrom, Vector2 patrolTo) : base(patrolFrom,patrolTo)
+        public Enemy_3(Vector2 patrolFrom, Vector2 patrolTo) : base(patrolFrom,patrolTo)
         {
             PATH = new string[]
             {
@@ -31,9 +31,7 @@ namespace Paradox
             
             _enemyAnimation = new Animation[]
             {
-                new Animation(_sprite[0], 128, 128),
-                new Animation(_sprite[1], 128, 128),
-                new Animation(_sprite[2], 128, 128),
+
             };
             
             

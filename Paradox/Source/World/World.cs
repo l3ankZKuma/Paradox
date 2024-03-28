@@ -18,25 +18,40 @@ namespace Paradox
             _map = new Map();
             _enemies= new List<Enemy>();
             
-            _enemies.Add(new Enemy_1(new Vector2(180,578),new Vector2(250,578)));
+            
+            addEnemies();
+
+            
         }
 
         public void Load()
         {
             _map.Load();
-            _player.Load();
+
             
             for(int i=0;i<_enemies.Count;i++)
             {
                 _enemies[i].Load();
             }
+            
+            
+            _player.Load();
+            
+            
 
 
         }
 
         public void Update(GameTime gameTime)
         {
+            for(int i=0;i<_enemies.Count;i++)
+            {
+                _enemies[i].Update(gameTime);
+            }
+            
             _player.Update(gameTime);
+            
+
             
         }
 
@@ -48,13 +63,24 @@ namespace Paradox
         public void Draw(GameTime gameTime)
         {
             _map.Draw();
-            _player.Draw(gameTime);
+
+            
             
             for(int i=0;i<_enemies.Count;i++)
             {
-                Console.WriteLine("Draw Enemy");
                 _enemies[i].Draw(gameTime);
             }
+            
+            _player.Draw(gameTime);
+            
+ 
+
+        }
+
+        public void addEnemies()
+        {
+            _enemies.Add(new Enemy_1(new Vector2(190,578-110),new Vector2(300,578-110)));
+            _enemies.Add(new Enemy_2(new Vector2(254,276),new Vector2(270,276)));
 
         }
 

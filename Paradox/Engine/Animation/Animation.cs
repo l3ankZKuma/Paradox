@@ -33,7 +33,7 @@ namespace Paradox
 
         }
 
-        public void Draw(Vector2 position,GameTime gameTime)
+        public void Draw(bool isFacingRight,Vector2 position,GameTime gameTime)
         {
             // Increment the timer by the elapsed game time
             _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -53,9 +53,10 @@ namespace Paradox
             
             // Calculate the source rectangle of the current frame
             var rect = new Rectangle((int)(_frameWidth * _currentFrame), 0, (int)_frameWidth, (int)_frameHeight);
+            SpriteEffects spriteEffects = isFacingRight ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
             // Draw the current frame
-            Singleton.Instance.SpriteBatch.Draw(_spriteSheet, position, rect, Color.White);
+            Singleton.Instance.SpriteBatch.Draw(_spriteSheet, position, rect, Color.White, 0, Vector2.Zero, 1, spriteEffects, 0);
         }
     }
 }

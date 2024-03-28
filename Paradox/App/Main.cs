@@ -50,6 +50,7 @@ namespace Paradox
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            Singleton.Instance.PlayerPos = _world.GetPlayerPosition();
             // Existing camera and world updates
             _camera.Follow(_world.GetPlayerPosition());
             _world.Update(gameTime);
