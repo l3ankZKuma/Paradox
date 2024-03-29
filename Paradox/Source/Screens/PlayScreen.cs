@@ -10,9 +10,9 @@ public class PlayScreen : Screen
     private Camera _camera;
     private GraphicsDevice _graphicsDevice;
 
-    public PlayScreen(GraphicsDevice graphicsDevice)
+    public PlayScreen()
     {
-        _graphicsDevice = graphicsDevice;
+
     }
 
     public override void OnEnter()
