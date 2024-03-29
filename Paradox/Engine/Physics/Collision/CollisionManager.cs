@@ -67,6 +67,7 @@ namespace Paradox
             CollisionRectangles.Add(new Rectangle(10706,451,1,1));  
             CollisionRectangles.Add(new Rectangle(10803,451,1,1));
             
+            
             CollisionRectangles.Add(new Rectangle(10929,452,11852-10929-128,720-400));
             CollisionRectangles.Add(new Rectangle(11856,659,12800-11856,720-659));
             
