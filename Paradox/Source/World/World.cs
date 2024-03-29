@@ -85,7 +85,7 @@ namespace Paradox
             _enemies.Add(new Enemy_4(new Vector2(1600, 482-60), new Vector2(1720, 482-70)));
             
             
-            _enemies.Add(new Boss(new Vector2(12200,450),new Vector2(12500,450)));
+            _enemies.Add(new Boss(new Vector2(12200,485),new Vector2(12500,485)));
 
         }
 

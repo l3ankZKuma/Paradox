@@ -11,7 +11,7 @@ namespace Paradox
         {
             PATH = new string[]
             {
-                "Boss/Boss_Walk", "Boss/Boss_Walk","Boss/Boss_Attack"
+                "Boss_2/Walk_Boss", "Boss_2/Walk_Boss","Boss_2/Attack_Boss"
             };
             _position=patrolFrom;
             
@@ -31,9 +31,9 @@ namespace Paradox
             
             _enemyAnimation = new Animation[]
             {
-                new Animation(_sprite[0], 128, 128),
-                new Animation(_sprite[1], 128, 128),
-                new Animation(_sprite[2], 128, 128),
+                new Animation(_sprite[0], 128, 128,0.1f),
+                new Animation(_sprite[1], 128, 128,0.1f),
+                new Animation(_sprite[2], 128, 128,0.1f),
             };
             
             

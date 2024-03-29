@@ -22,7 +22,7 @@ namespace Paradox
 
         public Player()
         {
-            _position.X = 10000;
+            _position.X = 12000;
             PATH = new string[]
             {
                 "Unit/Player/Samurai/Idle", "Unit/Player/Samurai/Walk", "Unit/Player/Samurai/Jump",
@@ -43,13 +43,13 @@ namespace Paradox
 
             _playerAnimation = new Animation[]
             {
-                new Animation(_sprite[0], 768 / 6, 128),
-                new Animation(_sprite[1], 1024 / 8, 128),
-                new Animation(_sprite[2], 1536 / 12, 128),
-                new Animation(_sprite[3], 256 / 2, 128),
-                new Animation(_sprite[4], 768 / 6, 128),
-                new Animation(_sprite[5], 384 / 2, 128),
-                new Animation(_sprite[6], 256 / 2, 128)
+                new Animation(_sprite[0], 768 / 6, 128,0.1f),
+                new Animation(_sprite[1], 1024 / 8, 128,0.1f),
+                new Animation(_sprite[2], 1536 / 12, 128,0.1f),
+                new Animation(_sprite[3], 256 / 2, 128,0.1f),
+                new Animation(_sprite[4], 768 / 6, 128,0.1f),
+                new Animation(_sprite[5], 384 / 2, 128,0.1f),
+                new Animation(_sprite[6], 256 / 2, 128,0.1f)
             };
         }
 

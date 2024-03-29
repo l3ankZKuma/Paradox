@@ -15,7 +15,7 @@ namespace Paradox
         private float _timePerFrame; // Time per frame in seconds
         private float _timer; // Accumulates elapsed time
 
-        public Animation(Texture2D spriteSheet, float frameWidth, float frameHeight , float animationSpeed = 0.1f)
+        public Animation(Texture2D spriteSheet, float frameWidth, float frameHeight , float animationSpeed )
         {
             _spriteSheet = spriteSheet;
             _frameWidth = frameWidth;
