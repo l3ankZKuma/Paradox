@@ -1,6 +1,43 @@
-namespace Paradox.Screens;
+using Microsoft.Xna.Framework;
 
-public class MenuScreen
+namespace Paradox
 {
+    public class MenuScreen : Screen
+    {
+ 
+        public MenuScreen()
+        {
+        
+        }
+ 
+        public override void Load()
+        {
+        
+        
+        
+        
+        }
     
+        public override void Update(GameTime gameTime)
+        {
+        
+        
+        
+        
+        
+        
+        }
+        
+        public override void Draw(GameTime gameTime)
+        {
+        
+        
+        
+        
+        
+        
+        }
+    
+    }
 }
+

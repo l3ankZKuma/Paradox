@@ -1,6 +1,41 @@
-namespace Paradox.Screens;
+using System;
+using Microsoft.Xna.Framework;
 
-public class PlayScreen
+namespace Paradox
 {
+    public class PlayScreen : Screen
+    {
+        public PlayScreen()
+        {
+        
+        }
+
+
+        public override void Load()
+        {
+        
+        
+        
+        
+        }
     
+        public override void Update(GameTime gameTime)
+        {
+        
+        
+        
+        
+        }
+        
+        public override void Draw(GameTime gameTime)
+        {
+        
+        
+        
+        
+        }
+    }
+
+
 }
+

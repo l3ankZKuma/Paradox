@@ -45,6 +45,42 @@
       <Compile Remove="Content\Map\**" />
     </ItemGroup>
     <ItemGroup>
+      <Content Include="..\..\..\..\..\..\.nuget\packages\monogame.extended.content.pipeline\3.8.0\contentFiles\any\netcoreapp3.1\CppNet.dll">
+        <Link>What\CppNet.dll</Link>
+      </Content>
+      <Content Include="..\..\..\..\..\..\.nuget\packages\monogame.extended.content.pipeline\3.8.0\contentFiles\any\netcoreapp3.1\libmojoshader_64.dll">
+        <Link>What\libmojoshader_64.dll</Link>
+      </Content>
+      <Content Include="..\..\..\..\..\..\.nuget\packages\monogame.extended.content.pipeline\3.8.0\contentFiles\any\netcoreapp3.1\mgfxc.deps.json">
+        <Link>What\mgfxc.deps.json</Link>
+      </Content>
+      <Content Include="..\..\..\..\..\..\.nuget\packages\monogame.extended.content.pipeline\3.8.0\contentFiles\any\netcoreapp3.1\mgfxc.dll">
+        <Link>What\mgfxc.dll</Link>
+      </Content>
+      <Content Include="..\..\..\..\..\..\.nuget\packages\monogame.extended.content.pipeline\3.8.0\contentFiles\any\netcoreapp3.1\mgfxc.exe">
+        <Link>What\mgfxc.exe</Link>
+      </Content>
+      <Content Include="..\..\..\..\..\..\.nuget\packages\monogame.extended.content.pipeline\3.8.0\contentFiles\any\netcoreapp3.1\mgfxc.pdb">
+        <Link>What\mgfxc.pdb</Link>
+      </Content>
+      <Content Include="..\..\..\..\..\..\.nuget\packages\monogame.extended.content.pipeline\3.8.0\contentFiles\any\netcoreapp3.1\mgfxc.runtimeconfig.dev.json">
+        <Link>What\mgfxc.runtimeconfig.dev.json</Link>
+      </Content>
+      <Content Include="..\..\..\..\..\..\.nuget\packages\monogame.extended.content.pipeline\3.8.0\contentFiles\any\netcoreapp3.1\mgfxc.runtimeconfig.json">
+        <Link>What\mgfxc.runtimeconfig.json</Link>
+      </Content>
+      <Content Include="..\..\..\..\..\..\.nuget\packages\monogame.extended.content.pipeline\3.8.0\contentFiles\any\netcoreapp3.1\SharpDX.D3DCompiler.dll">
+        <Link>What\SharpDX.D3DCompiler.dll</Link>
+      </Content>
+      <Content Include="..\..\..\..\..\..\.nuget\packages\monogame.extended.content.pipeline\3.8.0\contentFiles\any\netcoreapp3.1\SharpDX.D3DCompiler.xml">
+        <Link>What\SharpDX.D3DCompiler.xml</Link>
+      </Content>
+      <Content Include="..\..\..\..\..\..\.nuget\packages\monogame.extended.content.pipeline\3.8.0\contentFiles\any\netcoreapp3.1\SharpDX.dll">
+        <Link>What\SharpDX.dll</Link>
+      </Content>
+      <Content Include="..\..\..\..\..\..\.nuget\packages\monogame.extended.content.pipeline\3.8.0\contentFiles\any\netcoreapp3.1\SharpDX.xml">
+        <Link>What\SharpDX.xml</Link>
+      </Content>
       <Content Include="TiledSharp\TiledSharp.csproj" />
     </ItemGroup>
     <Target Name="RestoreDotnetTools" BeforeTargets="Restore">

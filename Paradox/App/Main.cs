@@ -12,7 +12,7 @@ namespace Paradox
         private World _world;
         private Camera _camera;
         private Vector2 _mousePositionInWorld;
-
+        private ScreenManager _screenManager;
 
         public Main()
         {
@@ -23,6 +23,7 @@ namespace Paradox
 
         protected override void Initialize()
         {
+            _screenManager= new ScreenManager();
             _world = new World();
             _camera = new Camera(GraphicsDevice.Viewport);
             Singleton.Instance.GameTime = new GameTime();
@@ -40,6 +41,7 @@ namespace Paradox
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             Singleton.Instance.SpriteBatch = _spriteBatch;
             Singleton.Instance.Content = Content;
+            _screenManager.Load();
 
             _world.Load();
         }
