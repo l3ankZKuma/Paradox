@@ -41,8 +41,7 @@ namespace Paradox
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             Singleton.Instance.SpriteBatch = _spriteBatch;
             Singleton.Instance.Content = Content;
-            _screenManager.Load();
-
+            
             _world.Load();
         }
 
