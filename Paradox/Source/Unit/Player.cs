@@ -22,6 +22,7 @@ namespace Paradox
 
         public Player()
         {
+            _position.X = 10000;
             PATH = new string[]
             {
                 "Unit/Player/Samurai/Idle", "Unit/Player/Samurai/Walk", "Unit/Player/Samurai/Jump",
@@ -143,7 +144,7 @@ namespace Paradox
         public override void Draw(GameTime gameTime)
         {
             // Draw the current animation frame. Adjust parameters as necessary.
-            _playerAnimation[(int)_currentState].Draw(_facingRight, _position, gameTime);
+            _playerAnimation[(int)_currentState].Draw(_facingRight, _position, gameTime,1.0f);
         }
         
         // Properties

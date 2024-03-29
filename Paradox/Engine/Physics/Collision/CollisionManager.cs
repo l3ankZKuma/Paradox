@@ -34,6 +34,48 @@ namespace Paradox
             CollisionRectangles.Add(new Rectangle(5589,244,5933-5589,288-244));
             CollisionRectangles.Add(new Rectangle(6000,211,40,256-211));
             
+            CollisionRectangles.Add(new Rectangle(6130,210,6720-6130,239-210));
+            CollisionRectangles.Add(new Rectangle(6800,290,6848-6800,335-290));
+            CollisionRectangles.Add(new Rectangle(6930,370,6975-6930,416-370));
+            CollisionRectangles.Add(new Rectangle(7041,434,7087-7041,480-434));
+            CollisionRectangles.Add(new Rectangle(7169,564,9648-7169,720-564));
+            
+            CollisionRectangles.Add(new Rectangle(9763,518,5,5));
+            CollisionRectangles.Add(new Rectangle(9857,451,5,5));
+            CollisionRectangles.Add(new Rectangle(9938,388,5,5));
+            CollisionRectangles.Add(new Rectangle(10000,323,5,5));
+            CollisionRectangles.Add(new Rectangle(10081,259,5,5));
+            
+            CollisionRectangles.Add(new Rectangle(10146,658,10367-10146,720-658));
+            
+            //Ladder
+            CollisionRectangles.Add(new Rectangle(10369,642,1,1));
+            CollisionRectangles.Add(new Rectangle(10384,628,1,1));
+            CollisionRectangles.Add(new Rectangle(10401,611,1,1));
+            CollisionRectangles.Add(new Rectangle(10417,595,1,1));
+            CollisionRectangles.Add(new Rectangle(10433,579,1,1));
+            CollisionRectangles.Add(new Rectangle(10449,563,1,1));
+            CollisionRectangles.Add(new Rectangle(10465,547,1,1));
+            CollisionRectangles.Add(new Rectangle(10481,531,1,1));
+            CollisionRectangles.Add(new Rectangle(10497,515,1,1));
+            CollisionRectangles.Add(new Rectangle(10513,499,1,1));
+            CollisionRectangles.Add(new Rectangle(10529,483,1,1));
+            CollisionRectangles.Add(new Rectangle(10545,467,1,1));
+            CollisionRectangles.Add(new Rectangle(10561,451,1,1));
+            
+            CollisionRectangles.Add(new Rectangle(10601,451,1,1));
+            CollisionRectangles.Add(new Rectangle(10706,451,1,1));  
+            CollisionRectangles.Add(new Rectangle(10803,451,1,1));
+            
+            CollisionRectangles.Add(new Rectangle(10929,452,11852-10929-128,720-453));
+            CollisionRectangles.Add(new Rectangle(11856,659,12800-11856,720-659));
+
+            
+            
+
+
+            
+            
             
             
             

@@ -4,14 +4,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Paradox
 {
-    class Enemy_4 : Enemy
+    class Boss : Enemy
     {
 
-        public Enemy_4(Vector2 patrolFrom, Vector2 patrolTo) : base(patrolFrom,patrolTo)
+        public Boss(Vector2 patrolFrom, Vector2 patrolTo) : base(patrolFrom,patrolTo)
         {
             PATH = new string[]
             {
-                "4/Walk_4", "4/Walk_4","4/Attack_4"
+                "Boss/Boss_Walk", "Boss/Boss_Walk","Boss/Boss_Attack"
             };
             _position=patrolFrom;
             
@@ -41,6 +41,7 @@ namespace Paradox
         
         public override void Update(GameTime gameTime)
         {
+            
             _enemyRectangle = new Rectangle((int)_position.X, (int)_position.Y, 128, 128);
             
             base.Update(gameTime);
@@ -49,7 +50,7 @@ namespace Paradox
 
         public override void Draw(GameTime gameTime)
         {
-            base.Draw(gameTime);
+            _enemyAnimation[(int)_currentState].Draw(_isFacingRight,_position,gameTime,2.0f);
         }
         
         
