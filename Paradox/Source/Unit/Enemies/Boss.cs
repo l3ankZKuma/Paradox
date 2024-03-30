@@ -50,7 +50,11 @@ namespace Paradox
 
         public override void Draw(GameTime gameTime)
         {
-            _enemyAnimation[(int)_currentState].Draw(_isFacingRight,_position,gameTime,2.0f);
+            //I want handel null
+            if (_enemyAnimation != null)
+            {
+                _enemyAnimation[(int)_currentState].Draw(_isFacingRight,_position,gameTime,2.0f);
+            }
         }
         
         

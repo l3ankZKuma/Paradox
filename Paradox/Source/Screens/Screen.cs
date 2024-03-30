@@ -6,15 +6,6 @@ namespace Paradox;
 
 public abstract class Screen
 {
-    public virtual void OnEnter()
-    {
-        
-    }
-
-    public virtual void OnExit()
-    {
-        
-    }
 
     public abstract void Load();
     public abstract void Update(GameTime gameTime);

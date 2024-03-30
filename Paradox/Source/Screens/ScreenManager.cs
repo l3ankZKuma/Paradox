@@ -1,69 +1,62 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
-namespace Paradox;
-
-public class ScreenManager
+namespace Paradox
 {
-    private Stack<Screen> _screens = new Stack<Screen>();
+    public class ScreenManager
+    {
 
-    public ScreenManager()
-    {
-        _screens = new Stack<Screen>();
-    }
-    public void ChangeScreen(Screen screen)
-    {
-        if (_screens.Count > 0)
+        //Create enum state
+        public enum GameScreenName
         {
-            _screens.Peek().OnExit();
-            _screens.Pop();
+            MenuScreen,
+            PlayScreen
+        }
+        private Screen _currentGameScreen;
+
+        public ScreenManager()
+        {
+            _currentGameScreen = new PlayScreen();
+        }
+        public void LoadScreen(GameScreenName _ScreenName)
+        {
+            switch (_ScreenName)
+            {
+                case GameScreenName.MenuScreen:
+                    _currentGameScreen = new MenuScreen();
+                    break;
+                case GameScreenName.PlayScreen:
+                    _currentGameScreen = new PlayScreen();
+                    break;
+            }
+            _currentGameScreen.Load();
         }
 
-        _screens.Push(screen);
-        screen.OnEnter();
-        screen.Load();
-    }
-
-    public void PushScreen(Screen screen)
-    {
-        if (_screens.Count > 0)
+        public void Load()
         {
-            _screens.Peek().OnExit();
+            _currentGameScreen.Load();
+        }
+        
+        public void Update(GameTime gameTime)
+        {
+            
+            _currentGameScreen.Update(gameTime);
         }
 
-        _screens.Push(screen);
-        screen.OnEnter();
-        screen.Load();
-    }
-
-    public void PopScreen()
-    {
-        if (_screens.Count > 0)
+        public void Draw(GameTime gameTime)
         {
-            _screens.Peek().OnExit();
-            _screens.Pop();
+            _currentGameScreen.Draw(gameTime);
         }
-
-        if (_screens.Count > 0)
+        private static ScreenManager instance;
+        public static ScreenManager Instance
         {
-            _screens.Peek().OnEnter();
+            get
+            {
+                if (instance == null)
+                    instance = new ScreenManager();
+                return instance;
+            }
         }
     }
-
-    public void Update(GameTime gameTime)
-    {
-        if (_screens.Count > 0)
-        {
-            _screens.Peek().Update(gameTime);
-        }
-    }
-
-    public void Draw(GameTime gameTime)
-    {
-        if (_screens.Count > 0)
-        {
-            _screens.Peek().Draw(gameTime);
-        }
-    }
-
 }

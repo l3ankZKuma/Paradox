@@ -9,10 +9,8 @@ namespace Paradox
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private World _world;
-        private Camera _camera;
-        private Vector2 _mousePositionInWorld;
         private ScreenManager _screenManager;
+        // private Screen _currentGameScreen;
 
         public Main()
         {
@@ -23,16 +21,18 @@ namespace Paradox
 
         protected override void Initialize()
         {
+            Singleton.Instance.GraphicsDevice = GraphicsDevice;
+            
             _screenManager= new ScreenManager();
-            _world = new World();
-            _camera = new Camera(GraphicsDevice.Viewport);
-            Singleton.Instance.GameTime = new GameTime();
 
+            
+            Singleton.Instance.GameTime = new GameTime();
             Singleton.Instance.UISize = new Vector2(1280, 720);
             _graphics.PreferredBackBufferWidth = (int)Singleton.Instance.UISize.X;
             _graphics.PreferredBackBufferHeight = (int)Singleton.Instance.UISize.Y;
             _graphics.ApplyChanges();
-
+            
+            
             base.Initialize();
         }
 
@@ -42,7 +42,9 @@ namespace Paradox
             Singleton.Instance.SpriteBatch = _spriteBatch;
             Singleton.Instance.Content = Content;
             
-            _world.Load();
+            _screenManager.Load();
+            
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -51,20 +53,8 @@ namespace Paradox
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            Singleton.Instance.PlayerPos = _world.GetPlayerPosition();
-            // Existing camera and world updates
-            _camera.Follow(_world.GetPlayerPosition());
-            _world.Update(gameTime);
-
-            // Get mouse state
-            var mouseState = Mouse.GetState();
-
-            // Transform the mouse position from screen to world coordinates
-            _mousePositionInWorld = Vector2.Transform(new Vector2(mouseState.X, mouseState.Y), Matrix.Invert(_camera.ViewMatrix));
-            
-            Console.WriteLine(_mousePositionInWorld);
-
-            // Use _mousePositionInWorld as needed in your game logic
+ 
+            _screenManager.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -72,13 +62,7 @@ namespace Paradox
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            _spriteBatch.Begin(transformMatrix: _camera.ViewMatrix);
-            _world.Draw(gameTime);
-            _spriteBatch.End();
-
-            base.Draw(gameTime);
+            _screenManager.Draw(gameTime);
         }
     }
 }

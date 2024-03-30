@@ -144,7 +144,10 @@ namespace Paradox
         public override void Draw(GameTime gameTime)
         {
             // Draw the current animation frame. Adjust parameters as necessary.
-            _playerAnimation[(int)_currentState].Draw(_facingRight, _position, gameTime,1.0f);
+            if (_playerAnimation != null)
+            {
+                _playerAnimation[(int)_currentState].Draw(_facingRight, _position, gameTime,1.0f);
+            }
         }
         
         // Properties
