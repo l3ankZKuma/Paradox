@@ -13,6 +13,8 @@ namespace Paradox
         private SpriteBatch _spriteBatch;
         private ContentManager _content;
         private GameTime _gameTime;
+        private ScreenManager _screenManager;
+        
 
         private Vector2 _playerPos;
 
@@ -62,6 +64,12 @@ namespace Paradox
         public Vector2 PlayerPos{
             get { return _playerPos; }
             set { _playerPos = value; }
+        }
+        
+        public ScreenManager ScreenManager
+        {
+            get { return _screenManager; }
+            set { _screenManager = value; }
         }
 
         // Static property for UI Size if you need it to be part of the singleton

@@ -10,7 +10,6 @@ namespace Paradox
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private ScreenManager _screenManager;
-        // private Screen _currentGameScreen;
 
         public Main()
         {
@@ -23,7 +22,7 @@ namespace Paradox
         {
             Singleton.Instance.GraphicsDevice = GraphicsDevice;
             
-            _screenManager= new ScreenManager();
+            Singleton.Instance.ScreenManager = new ScreenManager();
 
             
             Singleton.Instance.GameTime = new GameTime();
@@ -42,7 +41,7 @@ namespace Paradox
             Singleton.Instance.SpriteBatch = _spriteBatch;
             Singleton.Instance.Content = Content;
             
-            _screenManager.Load();
+            Singleton.Instance.ScreenManager.Load();
             
 
         }
@@ -52,17 +51,18 @@ namespace Paradox
             // Check for game exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
- 
-            _screenManager.Update(gameTime);
-
+            
+            Singleton.Instance.ScreenManager.Update(gameTime);
+            
             base.Update(gameTime);
         }
 
 
         protected override void Draw(GameTime gameTime)
         {
-            _screenManager.Draw(gameTime);
+            
+            Singleton.Instance.ScreenManager.Draw(gameTime);
+            
         }
     }
 }

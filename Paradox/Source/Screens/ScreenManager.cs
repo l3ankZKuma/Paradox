@@ -11,7 +11,10 @@ namespace Paradox
         public enum GameScreenName
         {
             MenuScreen,
-            PlayScreen
+            PlayScreen,
+            PauseScreen,
+            ExitScreen,
+            DeadScreen
         }
         private Screen _currentGameScreen;
 
@@ -23,12 +26,21 @@ namespace Paradox
         {
             switch (_ScreenName)
             {
+                
                 case GameScreenName.MenuScreen:
                     _currentGameScreen = new MenuScreen();
                     break;
                 case GameScreenName.PlayScreen:
                     _currentGameScreen = new PlayScreen();
                     break;
+                case GameScreenName.PauseScreen:
+                    _currentGameScreen = new PauseScreen();
+                    break;
+                
+                case GameScreenName.DeadScreen:
+                    _currentGameScreen = new DeadScreen();
+                    break;
+                
             }
             _currentGameScreen.Load();
         }
@@ -48,15 +60,6 @@ namespace Paradox
         {
             _currentGameScreen.Draw(gameTime);
         }
-        private static ScreenManager instance;
-        public static ScreenManager Instance
-        {
-            get
-            {
-                if (instance == null)
-                    instance = new ScreenManager();
-                return instance;
-            }
-        }
+
     }
 }

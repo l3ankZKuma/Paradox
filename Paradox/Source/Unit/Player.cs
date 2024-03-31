@@ -22,7 +22,7 @@ namespace Paradox
 
         public Player()
         {
-            _position.X = 12000;
+            //_position.X = 12000;
             PATH = new string[]
             {
                 "Unit/Player/Samurai/Idle", "Unit/Player/Samurai/Walk", "Unit/Player/Samurai/Jump",
@@ -77,7 +77,7 @@ namespace Paradox
 
             if (Math.Abs(deltaX) > deadzone)
             {
-                _position.X += deltaX * 0.03f; // Ensures frame rate independence
+                _position.X += deltaX * 0.02f; // Ensures frame rate independence
                 _facingRight = deltaX > 0;
                 if (!_currentState.Equals(_state.attack) && !_currentState.Equals(_state.jump))
                 {
