@@ -84,6 +84,19 @@ namespace Paradox
             _enemies.Add(new Enemy_3(new Vector2(1000,583-120),new Vector2(1200,583-120)));
             _enemies.Add(new Enemy_4(new Vector2(1600, 482-60), new Vector2(1720, 482-70)));
             
+            _enemies.Add(new Enemy_1(new Vector2(2047,409-64),new Vector2(2300,409-64)));
+            _enemies.Add(new Enemy_2(new Vector2(2500,377-60),new Vector2(3000,377-60)));
+            _enemies.Add(new Enemy_3(new Vector2(3470,377-60),new Vector2(3800,377-60)));
+            _enemies.Add(new Enemy_4(new Vector2(5490,219-90),new Vector2(5600,219-90)));
+            
+            _enemies.Add(new Enemy_3(new Vector2(6178,141-64),new Vector2(6300,141-64)));
+            _enemies.Add(new Enemy_1(new Vector2(7258,460),new Vector2(7500,460)));
+            _enemies.Add(new Enemy_4(new Vector2(8000,492-64),new Vector2(9000,492-64)));
+            _enemies.Add(new Enemy_3(new Vector2(9200,492-64),new Vector2(9500,492-64)));
+            _enemies.Add(new Enemy_3(new Vector2(11000,456-128),new Vector2(11500,456-128)));
+            _enemies.Add(new Enemy_2(new Vector2(10170,590-64),new Vector2(10300,590-64)));
+            
+            
             
             _enemies.Add(new Boss(new Vector2(12200,485),new Vector2(12500,485)));
 

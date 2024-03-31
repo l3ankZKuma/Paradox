@@ -20,6 +20,7 @@
         <None Remove="Content\Map\Map3.png" />
         <None Remove="Content\Map\Map4.png" />
         <None Remove="Content\Map\**" />
+        <None Remove="Content\Menu\Menu_BG.png" />
     </ItemGroup>
     <ItemGroup>
         <EmbeddedResource Include="Icon.ico"/>

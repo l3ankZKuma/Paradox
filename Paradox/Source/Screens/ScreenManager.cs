@@ -20,7 +20,7 @@ namespace Paradox
 
         public ScreenManager()
         {
-            _currentGameScreen = new PlayScreen();
+            _currentGameScreen = new MenuScreen();
         }
         public void LoadScreen(GameScreenName _ScreenName)
         {

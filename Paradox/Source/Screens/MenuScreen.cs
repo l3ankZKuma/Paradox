@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -12,26 +13,33 @@ namespace Paradox
         
         //BG
         private Texture2D _background;
+        private MouseState _mouseState;
         
         
         
         //button
-        private Texture2D playButton,quitButton,settingsButton;
+        private Texture2D _playButton,_optionButton,_exitButton;
         private Vector2 playButtonPosition, quitButtonPosition, settingsButtonPosition;
         private MouseState previousMouseState;
+        
+        
+        //check
+        private bool _isMainScreen;
+        
         
  
         public MenuScreen()
         {
-            
-            
         
         }
  
         public override void Load()
         {
 
-            _background=Singleton.Instance.Content.Load<Texture2D>("Menu/Menu_BG_rz ");
+            _background=Singleton.Instance.Content.Load<Texture2D>("Menu/Menu_BG3");
+            _playButton = Singleton.Instance.Content.Load<Texture2D>("Menu/Menu_BG_Start");
+            _optionButton = Singleton.Instance.Content.Load<Texture2D>("Menu/Menu_BG_Option");
+            _exitButton = Singleton.Instance.Content.Load<Texture2D>("Menu/Menu_BG_Exit");
 
 
 
@@ -39,7 +47,8 @@ namespace Paradox
     
         public override void Update(GameTime gameTime)
         {
-        
+            Singleton.Instance.MouseState = Mouse.GetState();
+            
         }
         
         public override void Draw(GameTime gameTime)

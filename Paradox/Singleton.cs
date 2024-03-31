@@ -15,6 +15,9 @@ namespace Paradox
         private GameTime _gameTime;
         private ScreenManager _screenManager;
         
+        //mouse
+        private MouseState _mouseState;
+        
 
         private Vector2 _playerPos;
 
@@ -72,6 +75,12 @@ namespace Paradox
             set { _screenManager = value; }
         }
 
+        
+        public MouseState MouseState
+        {
+            get { return _mouseState; }
+            set { _mouseState = value; }
+        }
         // Static property for UI Size if you need it to be part of the singleton
         public Vector2 UISize { get; set; }
 

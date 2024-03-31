@@ -22,7 +22,7 @@ namespace Paradox
 
         public Player()
         {
-            //_position.X = 12000;
+            _position.X = 10170;
             PATH = new string[]
             {
                 "Unit/Player/Samurai/Idle", "Unit/Player/Samurai/Walk", "Unit/Player/Samurai/Jump",
