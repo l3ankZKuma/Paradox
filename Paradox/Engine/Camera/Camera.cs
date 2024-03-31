@@ -26,7 +26,7 @@ public class Camera
         _position.X = Math.Max(_position.X, 0);
 
         // Ensure the camera does not go beyond the maximum x limit (12800 - viewport width)
-        float maxX = 11520+800 - _viewport.Width;
+        float maxX = 12520+280 - _viewport.Width;
         _position.X = Math.Min(_position.X, maxX);
 
         // y-position remains unchanged, meaning it's fixed to whatever value it was set to initially or otherwise.

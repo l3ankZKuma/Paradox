@@ -15,6 +15,11 @@ namespace Paradox
         private GameTime _gameTime;
         private ScreenManager _screenManager;
         
+        //player
+        private int _playerHP;
+        
+        private Game _game { get; set; }
+        
         //mouse
         private MouseState _mouseState;
         
@@ -83,6 +88,18 @@ namespace Paradox
         }
         // Static property for UI Size if you need it to be part of the singleton
         public Vector2 UISize { get; set; }
+        
+        public int PlayerHP
+        {
+            get { return _playerHP; }
+            set { _playerHP = value; }
+        }
+        
+
+        public void ExitGame()
+        {
+            _game.Exit();
+        }
 
 
     }

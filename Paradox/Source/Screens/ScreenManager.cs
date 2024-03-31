@@ -60,6 +60,7 @@ namespace Paradox
         {
             _currentGameScreen.Draw(gameTime);
         }
+        
 
     }
 }

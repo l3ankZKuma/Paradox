@@ -13,11 +13,13 @@ public class PlayScreen : Screen
     private Camera _camera;
     private GraphicsDevice _graphicsDevice;
     private Vector2 _mousePositionInWorld;
+    private UI _ui;
 
     public PlayScreen()
     {
         _world = new World();
         _camera = new Camera(Singleton.Instance.GraphicsDevice.Viewport);
+        _ui = new UI();
         
     }
     
@@ -25,6 +27,7 @@ public class PlayScreen : Screen
     public override void Load()
     {
         _world.Load();
+        _ui.Load();
         // Load other resources specific to PlayScreen
     }
 
@@ -50,10 +53,21 @@ public class PlayScreen : Screen
 
     public override void Draw(GameTime gameTime)
     {
+        
+        //dynamic
         Singleton.Instance.SpriteBatch.Begin(transformMatrix: _camera.ViewMatrix);
         
         _world.Draw(gameTime);
-            
+        
+        
+        Singleton.Instance.SpriteBatch.End();
+        
+        //static
+        
+        Singleton.Instance.SpriteBatch.Begin();
+        
+        _ui.Draw(gameTime);
+        
         Singleton.Instance.SpriteBatch.End();
     }
 }
