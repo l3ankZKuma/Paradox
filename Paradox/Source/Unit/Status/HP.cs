@@ -39,7 +39,7 @@ namespace Paradox
         {
             for(int i=0;i<Singleton.Instance.PlayerHP;i++)
             {
-                _animation.Draw(true, new Vector2(10 + i * 32, 10), gameTime, 1.0f);
+                _animation.Draw(true, new Vector2(10 + i * 40, 10), gameTime, 1.5f);
                 
                 
             }

@@ -34,7 +34,6 @@ public class PlayScreen : Screen
     public override void Update(GameTime gameTime)
     {
         
-        Singleton.Instance.PlayerPos = _world.GetPlayerPosition();
 
         
         // Existing camera and world updates

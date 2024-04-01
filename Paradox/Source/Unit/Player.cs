@@ -13,7 +13,7 @@ namespace Paradox
         private _state _currentState;
         private Rectangle _playerRectangle;
 
-        private int _hp = 3;
+        private int _hp = 5;
         
         private bool _facingRight = true;
         
@@ -44,7 +44,7 @@ namespace Paradox
 
             _playerAnimation = new Animation[]
             {
-                new Animation(_sprite[0], 768 / 6, 128,0.2f),
+                new Animation(_sprite[0], 768 / 6, 128,0.5f),
                 new Animation(_sprite[1], 1024 / 8, 128,0.1f),
                 new Animation(_sprite[2], 1536 / 12, 128,0.05f),
                 new Animation(_sprite[3], 256 / 2, 128,0.05f),

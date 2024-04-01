@@ -10,6 +10,7 @@ namespace Paradox
         private Player _player;
         private List<Enemy> _enemies;
         private Map _map;
+        private List<Items> _items;
         
 
         public World()
@@ -17,18 +18,28 @@ namespace Paradox
             _player = new Player();
             _map = new Map();
             _enemies= new List<Enemy>();
+            _items = new List<Items>();
             
-            
+            //Ememies position
             addEnemies();
-
+            
+            //Items position
+            addItems();
             
         }
 
         public void Load()
         {
             _map.Load();
-
             
+            
+            //Load items
+            for(int i=0;i<_items.Count;i++)
+            {
+                _items[i].Load();
+            }
+
+            //Load enemies
             for(int i=0;i<_enemies.Count;i++)
             {
                 _enemies[i].Load();
@@ -44,10 +55,14 @@ namespace Paradox
 
         public void Update(GameTime gameTime)
         {
+            Singleton.Instance.PlayerPos = _player.Position;
+            
+            
             for(int i=0;i<_enemies.Count;i++)
             {
                 _enemies[i].Update(gameTime);
             }
+            
             
             _player.Update(gameTime);
             
@@ -55,26 +70,40 @@ namespace Paradox
             
         }
 
-        private void HandlePlayerCollision()
-        {
-            Console.WriteLine("Player collided with something!");
-        }
 
         public void Draw(GameTime gameTime)
         {
             _map.Draw();
 
+            //Draw items
+            for(int i=0;i<_items.Count;i++)
+            {
+                _items[i].Draw(gameTime);
+            }
             
             
+            
+            //Draw enemies
             for(int i=0;i<_enemies.Count;i++)
             {
                 _enemies[i].Draw(gameTime);
             }
             
+            
+            
             _player.Draw(gameTime);
             
  
 
+        }
+
+        public void addItems()
+        {
+            
+            _items.Add(new Coin(new Vector2(423,374)));
+            _items.Add(new Coin(new Vector2(678,280)));
+            _items.Add(new Potion(new Vector2(698,430)));
+            
         }
 
         public void addEnemies()
@@ -99,12 +128,11 @@ namespace Paradox
             
             
             _enemies.Add(new Boss(new Vector2(12200,485),new Vector2(12500,485)));
-
         }
 
-        public Vector2 GetPlayerPosition()
-        {
-            return _player.Position;
-        }
+        // public Vector2 GetPlayerPosition()
+        // {
+        //     return _player.Position;
+        // }
     }
 }

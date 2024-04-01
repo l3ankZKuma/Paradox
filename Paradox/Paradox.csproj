@@ -42,6 +42,7 @@
     <ItemGroup>
       <Folder Include="Engine\Input\Mouse\" />
       <Folder Include="Engine\Time\" />
+      <Folder Include="Source\Unit\NPC\" />
     </ItemGroup>
     <ItemGroup>
       <Compile Remove="Assets\**" />

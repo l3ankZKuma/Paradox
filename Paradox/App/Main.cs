@@ -52,6 +52,9 @@ namespace Paradox
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             
+            
+            GraphicsDevice.Clear(Color.White);
+            
             Singleton.Instance.ScreenManager.Update(gameTime);
             
             base.Update(gameTime);
