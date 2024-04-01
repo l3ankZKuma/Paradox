@@ -53,7 +53,6 @@ namespace Paradox
                 Exit();
             
             
-            GraphicsDevice.Clear(Color.White);
             
             Singleton.Instance.ScreenManager.Update(gameTime);
             
@@ -64,6 +63,8 @@ namespace Paradox
         protected override void Draw(GameTime gameTime)
         {
             
+            GraphicsDevice.Clear(Color.White);
+
             Singleton.Instance.ScreenManager.Draw(gameTime);
             
         }

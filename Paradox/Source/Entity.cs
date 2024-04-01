@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -19,8 +20,11 @@ namespace Paradox
         protected Texture2D[] _sprite;
         protected Vector2 _position;
 
-        protected float _hp;
-        protected float _damage;
+        
+        protected Random rd;
+        protected int _hp;
+        protected int _damage;
+        
         
         protected bool _isFacingRight=true;
         

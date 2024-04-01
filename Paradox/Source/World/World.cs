@@ -11,6 +11,7 @@ namespace Paradox
         private List<Enemy> _enemies;
         private Map _map;
         private List<Items> _items;
+        private List<Merchant> _merchants;
         
 
         public World()
@@ -19,18 +20,28 @@ namespace Paradox
             _map = new Map();
             _enemies= new List<Enemy>();
             _items = new List<Items>();
-            
+            _merchants = new List<Merchant>();
             //Ememies position
             addEnemies();
             
             //Items position
             addItems();
             
+            
+            //NPC position 
+            addNPC();
+            
         }
 
         public void Load()
         {
             _map.Load();
+            
+            //Load NPC
+            for(int i=0;i<_merchants.Count;i++)
+            {
+                _merchants[i].Load();
+            }
             
             
             //Load items
@@ -58,6 +69,13 @@ namespace Paradox
             Singleton.Instance.PlayerPos = _player.Position;
             
             
+            for(int i=0;i<_merchants.Count;i++)
+            {
+                _merchants[i].Update(gameTime);
+            }   
+            
+            
+            
             for(int i=0;i<_enemies.Count;i++)
             {
                 _enemies[i].Update(gameTime);
@@ -75,10 +93,22 @@ namespace Paradox
         {
             _map.Draw();
 
+            //NPC
+            for(int i=0;i<_merchants.Count;i++)
+            {
+                
+                _merchants[i].Draw(gameTime);
+                
+            }
+            
+            
+            
             //Draw items
             for(int i=0;i<_items.Count;i++)
             {
+                
                 _items[i].Draw(gameTime);
+                
             }
             
             
@@ -86,7 +116,9 @@ namespace Paradox
             //Draw enemies
             for(int i=0;i<_enemies.Count;i++)
             {
+                
                 _enemies[i].Draw(gameTime);
+                
             }
             
             
@@ -97,12 +129,22 @@ namespace Paradox
 
         }
 
+        public void addNPC()
+        {
+            _merchants.Add(new Merchant(new Vector2(1725,270)));
+            _merchants.Add(new Merchant(new Vector2(4701,335)));
+            _merchants.Add(new Merchant(new Vector2(11750,363)));
+        }
+        
+        
         public void addItems()
         {
             
             _items.Add(new Coin(new Vector2(423,374)));
             _items.Add(new Coin(new Vector2(678,280)));
             _items.Add(new Potion(new Vector2(698,430)));
+            _items.Add(new Coin(new Vector2(1667,325)));
+            _items.Add(new Potion(new Vector2(2280,420)));
             
         }
 

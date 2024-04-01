@@ -13,9 +13,10 @@ namespace Paradox
         private _state _currentState;
         private Rectangle _playerRectangle;
 
+
         //status point
-        private int _hp = 5;
-        private int _pp = 5;
+        private int _hp = 0;
+ 
         
         private bool _facingRight = true;
         
@@ -26,12 +27,15 @@ namespace Paradox
 
         public Player()
         {
+            
             PATH = new string[]
             {
                 "Unit/Player/Samurai/Idle", "Unit/Player/Samurai/Walk", "Unit/Player/Samurai/Jump",
                 "Unit/Player/Samurai/Shield", "Unit/Player/Samurai/Attack_1", "Unit/Player/Samurai/Dead",
                 "Unit/Player/Samurai/Hurt"
             };
+            
+            
             
             _collisionManager = new CollisionManager();
         }
@@ -51,7 +55,7 @@ namespace Paradox
                 new Animation(_sprite[2], 1536 / 12, 128,0.05f),
                 new Animation(_sprite[3], 256 / 2, 128,0.05f),
                 new Animation(_sprite[4], 768 / 6, 128,0.05f),
-                new Animation(_sprite[5], 384 / 2, 128,0.1f),
+                new Animation(_sprite[5], 384 / 3, 128,0.1f),
                 new Animation(_sprite[6], 256 / 2, 128,0.1f)
             };
         }
@@ -63,15 +67,18 @@ namespace Paradox
         public override void Update(GameTime gameTime)
         {
             
-            //For update status and sending to singleton
-            Singleton.Instance.PlayerHP = _hp;
-            Singleton.Instance.PlayerPP = _pp;
-            
             _playerRectangle = new Rectangle((int)_position.X, (int)_position.Y, 64, 128);
             _timeSinceLastStateChange += (float)gameTime.ElapsedGameTime.TotalSeconds;
             HandleInput();
             ApplyPhysics((float)gameTime.ElapsedGameTime.TotalSeconds);
             CheckCollisions();
+
+            if (Singleton.Instance.PlayerHP <= 0)
+            {
+                _currentState=_state.dead;
+                Singleton.Instance.PlayerSpeed = 0;
+            }
+
         }
 
         private void HandleInput()
@@ -85,7 +92,7 @@ namespace Paradox
 
             if (Math.Abs(deltaX) > deadzone)
             {
-                _position.X += deltaX * 0.02f; // Ensures frame rate independence
+                _position.X += deltaX * Singleton.Instance.PlayerSpeed; // Ensures frame rate independence
                 _facingRight = deltaX > 0;
                 if (!_currentState.Equals(_state.attack) && !_currentState.Equals(_state.jump))
                 {
@@ -151,11 +158,14 @@ namespace Paradox
 
         public override void Draw(GameTime gameTime)
         {
-            // Draw the current animation frame. Adjust parameters as necessary.
+            
+            
             if (_playerAnimation != null)
             {
                 _playerAnimation[(int)_currentState].Draw(_facingRight, _position, gameTime,1.0f);
             }
+            
+            
         }
         
         // Properties
@@ -165,4 +175,3 @@ namespace Paradox
         }
     }
 }
-

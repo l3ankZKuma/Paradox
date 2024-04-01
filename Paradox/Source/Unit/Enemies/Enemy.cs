@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+
 namespace Paradox
 {
     public class Enemy : Entity
@@ -29,11 +30,26 @@ namespace Paradox
         protected bool _patrollingTo = true; // Direction of patrol
 
         protected CollisionManager _collisionManager;
+        
+        //cooldown
+        protected float _attackCooldown = 2.5f; // Time between attacks
+        protected float _currentAttackCooldown;
 
         public Enemy(Vector2 patrolFrom, Vector2 patrolTo)
         {
+            rd = new();
+            
             _patrolFrom = patrolFrom;
             _patrolTo = patrolTo;
+            
+            
+            //generate hp
+            _hp = rd.Next(3,5);
+            _damage = rd.Next(1,3);
+            
+            
+            //Cool down
+            _currentAttackCooldown = 2.5f;
         }
 
         public override void Load()
@@ -47,6 +63,11 @@ namespace Paradox
         public override void Update(GameTime gameTime)
         {
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            
+            if (_currentAttackCooldown > 0)
+            {
+                _currentAttackCooldown -= deltaTime;
+            }
 
             switch (_currentState)
             {
@@ -130,12 +151,27 @@ namespace Paradox
 
         protected void UpdateAttackState(float deltaTime)
         {
-            // Implement attack logic here, could be an animation trigger and damage logic
-            if (Vector2.Distance(_position, Singleton.Instance.PlayerPos) > _attackRange)
+            float distanceToPlayer = Vector2.Distance(_position, Singleton.Instance.PlayerPos);
+
+            // Check if the player is still within attack range
+            if (distanceToPlayer <= _attackRange)
             {
+                if (_currentAttackCooldown <= 0)
+                {
+                    // Attack logic
+                    Singleton.Instance.PlayerHP -= _damage;
+
+                    // Reset cooldown timer
+                    _currentAttackCooldown = _attackCooldown;
+                }
+            }
+            else
+            {
+                // If the player has moved out of attack range, switch back to walking state to follow the player
                 _currentState = _enemyState.Walk;
             }
         }
+
 
         public override void Draw(GameTime gameTime)
         {

@@ -16,8 +16,11 @@ namespace Paradox
         private ScreenManager _screenManager;
         
         //player
-        private int _playerHP;
-        private int _playerPP;
+        private int _playerHP = 5;
+        private float _playerSpeed = 0.015f;
+        private int _playerAtk = 1;
+        private int _playerCoin = 0;
+        
         
         private Game _game { get; set; }
         
@@ -81,6 +84,11 @@ namespace Paradox
             set { _screenManager = value; }
         }
 
+        public int  PlayerAtk
+        {
+            get { return _playerAtk; }
+            set { _playerAtk = value; }
+        }
         
         public MouseState MouseState
         {
@@ -96,18 +104,28 @@ namespace Paradox
             set { _playerHP = value; }
         }
 
-        public int PlayerPP
+
+        public float PlayerSpeed
         {
-            get { return _playerPP; }
-            set { _playerPP = value; }
+            get { return _playerSpeed; }
+            set { _playerSpeed = value; }
         }
         
+        public int PlayerCoin
+        {
+            get { return _playerCoin; }
+            set { _playerCoin = value; }
+        }
 
+
+        
+        
         public void ExitGame()
         {
             _game.Exit();
         }
         
+ 
         
 
 
