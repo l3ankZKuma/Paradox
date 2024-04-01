@@ -145,6 +145,8 @@ namespace Paradox
             _items.Add(new Potion(new Vector2(698,430)));
             _items.Add(new Coin(new Vector2(1667,325)));
             _items.Add(new Potion(new Vector2(2280,420)));
+            _items.Add(new Potion(new Vector2(3275,311)));
+            _items.Add(new Potion(new Vector2(5191,312)));
             
         }
 

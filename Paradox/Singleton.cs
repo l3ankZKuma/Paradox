@@ -19,7 +19,7 @@ namespace Paradox
         private int _playerHP = 5;
         private float _playerSpeed = 0.015f;
         private int _playerAtk = 1;
-        private int _playerCoin = 0;
+        private int _playerCoin = 1;
         
         
         private Game _game { get; set; }

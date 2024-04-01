@@ -45,7 +45,7 @@ namespace Paradox
             
             //generate hp
             _hp = rd.Next(3,5);
-            _damage = rd.Next(1,3);
+            _damage =0;
             
             
             //Cool down

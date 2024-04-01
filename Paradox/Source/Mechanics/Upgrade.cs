@@ -29,36 +29,54 @@ namespace Paradox
         {
             var mouseState = Mouse.GetState();
             var gamePadState = GamePad.GetState(PlayerIndex.One); // Assuming player one's controller
-            // Console.WriteLine(mouseState.X + " " + mouseState.Y);
-            Console.WriteLine(Singleton.Instance.PlayerPos.X + " " + Singleton.Instance.PlayerPos.Y);
+            
+            
+            Console.WriteLine(Singleton.Instance.PlayerPos.Y);
 
             // Check if within upgrade area and either mouse clicked or Y button pressed
-            if ((Singleton.Instance.PlayerPos.X >= 1659 && Singleton.Instance.PlayerPos.X <= 1756 && Singleton.Instance.PlayerPos.Y >= 277 && Singleton.Instance.PlayerPos.Y <= 300) )
+            if (Singleton.Instance.PlayerCoin >= 0 &&
+                
+                ((Singleton.Instance.PlayerPos.X >= 1659 && Singleton.Instance.PlayerPos.X <= 1800 ) &&
+                (Singleton.Instance.PlayerPos.Y >= 225 && Singleton.Instance.PlayerPos.Y <= 230 )) 
+                
+                ||
+                
+                ((Singleton.Instance.PlayerPos.X >= 4680 && Singleton.Instance.PlayerPos.X <= 4680 + 128) &&
+                
+                (Singleton.Instance.PlayerPos.Y >= 285 && Singleton.Instance.PlayerPos.Y <= 295)) &&
+                
+                ((Singleton.Instance.PlayerPos.X>=11740 && Singleton.Instance.PlayerPos.X <= 11740 + 128) &&
+                 
+                 (Singleton.Instance.PlayerPos.Y >= 320 && Singleton.Instance.PlayerPos.Y <= 327))
+                
+                )
+                
             {
-                if (mouseState.X >= 503 && mouseState.X <= 503 + 274 && mouseState.Y >= 284 && mouseState.Y <= 284 + 74)
+                  
+                if(mouseState.X >= 503 && mouseState.X <= 503 + 274 && mouseState.Y >= 284 && mouseState.Y <= 284 + 74)
                 {
                     _key = "Upgrade_atk";
-                    // Check for mouse release or gamepad Y button press for the upgrade action
-                    if (mouseState.LeftButton == ButtonState.Released || gamePadState.Buttons.Y == ButtonState.Pressed)
+                    if(mouseState.LeftButton == ButtonState.Released)
                     {
                         Singleton.Instance.PlayerAtk++;
-                        Singleton.Instance.PlayerCoin -= 1;
                     }
                 }
-                else if (mouseState.X >= 503 && mouseState.X <= 503 + 274 && mouseState.Y >= 393 && mouseState.Y <= 393 + 74)
+                else if(mouseState.X >= 503 && mouseState.X <= 503 + 274 && mouseState.Y >= 393 && mouseState.Y <= 393 + 74)
                 {
                     _key = "Upgrade_spd";
-                    // Check for mouse release or gamepad Y button press for the upgrade action
-                    if (mouseState.LeftButton == ButtonState.Released || gamePadState.Buttons.Y == ButtonState.Pressed)
+                    if(mouseState.LeftButton == ButtonState.Released)
                     {
-                        Singleton.Instance.PlayerSpeed += 0.01f;
-                        Singleton.Instance.PlayerCoin -= 1;
+                        Singleton.Instance.PlayerSpeed++;
                     }
                 }
                 else
                 {
                     _key = "Upgrade";
                 }
+            }
+            else
+            {
+                _key = "";
             }
         }
 

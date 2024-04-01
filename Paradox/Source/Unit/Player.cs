@@ -27,6 +27,7 @@ namespace Paradox
 
         public Player()
         {
+            _position.X = 5191;
             
             PATH = new string[]
             {

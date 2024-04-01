@@ -47,7 +47,7 @@ public class PlayScreen : Screen
         // Transform the mouse position from screen to world coordinates
         _mousePositionInWorld = Vector2.Transform(new Vector2(mouseState.X, mouseState.Y), Matrix.Invert(_camera.ViewMatrix));
         
-        //Console.WriteLine(_mousePositionInWorld);
+        Console.WriteLine(_mousePositionInWorld);
 
     }
 
