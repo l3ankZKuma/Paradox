@@ -17,6 +17,7 @@ namespace Paradox
         
         //player
         private int _playerHP;
+        private int _playerPP;
         
         private Game _game { get; set; }
         
@@ -94,12 +95,20 @@ namespace Paradox
             get { return _playerHP; }
             set { _playerHP = value; }
         }
+
+        public int PlayerPP
+        {
+            get { return _playerPP; }
+            set { _playerPP = value; }
+        }
         
 
         public void ExitGame()
         {
             _game.Exit();
         }
+        
+        
 
 
     }

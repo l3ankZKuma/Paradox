@@ -130,9 +130,6 @@ namespace Paradox
             _enemies.Add(new Boss(new Vector2(12200,485),new Vector2(12500,485)));
         }
 
-        // public Vector2 GetPlayerPosition()
-        // {
-        //     return _player.Position;
-        // }
+
     }
 }

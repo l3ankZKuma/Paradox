@@ -13,7 +13,9 @@ namespace Paradox
         private _state _currentState;
         private Rectangle _playerRectangle;
 
+        //status point
         private int _hp = 5;
+        private int _pp = 5;
         
         private bool _facingRight = true;
         
@@ -60,7 +62,11 @@ namespace Paradox
 
         public override void Update(GameTime gameTime)
         {
+            
+            //For update status and sending to singleton
             Singleton.Instance.PlayerHP = _hp;
+            Singleton.Instance.PlayerPP = _pp;
+            
             _playerRectangle = new Rectangle((int)_position.X, (int)_position.Y, 64, 128);
             _timeSinceLastStateChange += (float)gameTime.ElapsedGameTime.TotalSeconds;
             HandleInput();
