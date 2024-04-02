@@ -81,7 +81,7 @@ namespace Paradox
             
             
             
-            if (Singleton.Instance.PlayerHP <= 0  /*|| Singleton.Instance.PlayerPos.Y >750*/)
+            if (Singleton.Instance.PlayerHP <= 0  || Singleton.Instance.PlayerPos.Y >750)
             {
                 Singleton.Instance.PlayerHP = 0;
                 _currentState = _state.dead;

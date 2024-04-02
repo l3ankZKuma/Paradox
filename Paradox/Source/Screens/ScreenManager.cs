@@ -37,13 +37,6 @@ namespace Paradox
                     MediaPlayer.Stop();
                     _currentGameScreen = new PlayScreen();
                     break;
-                case GameScreenName.PauseScreen:
-                    _currentGameScreen = new PauseScreen();
-                    break;
-                
-                case GameScreenName.DeadScreen:
-                    _currentGameScreen = new DeadScreen();
-                    break;
                 
             }
             _currentGameScreen.Load();

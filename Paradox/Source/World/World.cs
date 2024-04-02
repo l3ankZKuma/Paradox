@@ -156,44 +156,49 @@ namespace Paradox
         public void addItems()
         {
             
-            _items.Add(new Coin(new Vector2(423,374)));
-            _items.Add(new Coin(new Vector2(678,280)));
-            _items.Add(new Potion(new Vector2(698,430)));
-            _items.Add(new Coin(new Vector2(1667,325)));
-            _items.Add(new Potion(new Vector2(2280,420)));
-            _items.Add(new Potion(new Vector2(3275,311)));
-            _items.Add(new Potion(new Vector2(5191,312)));
-            _items.Add(new Coin(new Vector2(5902,215)));
-            _items.Add(new Potion(new Vector2(6674,184)));
-            _items.Add(new Coin(new Vector2(4319,435)));
-            _items.Add(new Coin(new Vector2(7816,211)));
-            _items.Add(new Potion(new Vector2(7900,211)));
-            _items.Add(new Coin(new Vector2(10090,229)));
-            _items.Add(new Coin(new Vector2(3035,85)));
+            _items.Add(ItemFactory.CreateItem("Coin", new Vector2(423,374)));
+            _items.Add(ItemFactory.CreateItem("Coin", new Vector2(678,280)));
+            _items.Add(ItemFactory.CreateItem("Potion", new Vector2(698,430)));
+            _items.Add(ItemFactory.CreateItem("Coin", new Vector2(1667,325)));
+            _items.Add(ItemFactory.CreateItem("Potion", new Vector2(2280,420)));
+            _items.Add(ItemFactory.CreateItem("Potion", new Vector2(3275,311)));
+            _items.Add(ItemFactory.CreateItem("Potion", new Vector2(5191,312)));
+            _items.Add(ItemFactory.CreateItem("Coin", new Vector2(5902,215)));
+            _items.Add(ItemFactory.CreateItem("Potion", new Vector2(6674,184)));
+            _items.Add(ItemFactory.CreateItem("Coin", new Vector2(4319,435)));
+            _items.Add(ItemFactory.CreateItem("Coin", new Vector2(7816,211)));
+            _items.Add(ItemFactory.CreateItem("Potion", new Vector2(7900,211)));
+            _items.Add(ItemFactory.CreateItem("Coin", new Vector2(10090,229)));
+            _items.Add(ItemFactory.CreateItem("Coin", new Vector2(3035,85)));
 
         }
 
-        public void addEnemies()
+        private void addEnemies()
         {
-            _enemies.Add(new Enemy_2(new Vector2(250,276),new Vector2(270,276)));
-            _enemies.Add(new Enemy_3(new Vector2(1000,583-120),new Vector2(1200,583-120)));
-            _enemies.Add(new Enemy_4(new Vector2(1600, 482-60), new Vector2(1720, 482-70)));
-            
-            _enemies.Add(new Enemy_1(new Vector2(2047,409-64),new Vector2(2000,409-64)));
-            _enemies.Add(new Enemy_2(new Vector2(2500,377-60),new Vector2(3000,377-60)));
-            _enemies.Add(new Enemy_3(new Vector2(3470,377-60),new Vector2(3800,377-60)));
-            _enemies.Add(new Enemy_4(new Vector2(5490,219-90),new Vector2(5600,219-90)));
-            
-            _enemies.Add(new Enemy_3(new Vector2(6178,141-64),new Vector2(6300,141-64)));
-            _enemies.Add(new Enemy_1(new Vector2(7258,460),new Vector2(7500,460)));
-            _enemies.Add(new Enemy_4(new Vector2(8000,492-64),new Vector2(9000,492-64)));
-            _enemies.Add(new Enemy_3(new Vector2(9200,492-64),new Vector2(9500,492-64)));
-            _enemies.Add(new Enemy_3(new Vector2(11000,456-128),new Vector2(11500,456-128)));
-            _enemies.Add(new Enemy_2(new Vector2(10170,590-64),new Vector2(10300,590-64)));
-            
-            
-            
-            _enemies.Add(new Boss(new Vector2(12200,485),new Vector2(12500,485)));
+            // Create Enemy_2 instances
+            _enemies.Add(EnemyFactory.CreateEnemy("Enemy_2", new Vector2(250, 276), new Vector2(270, 276)));
+            _enemies.Add(EnemyFactory.CreateEnemy("Enemy_2", new Vector2(2500, 377 - 60), new Vector2(3000, 377 - 60)));
+            _enemies.Add(EnemyFactory.CreateEnemy("Enemy_2", new Vector2(10170, 590 - 64), new Vector2(10300, 590 - 64)));
+
+            // Create Enemy_3 instances
+            _enemies.Add(EnemyFactory.CreateEnemy("Enemy_3", new Vector2(1000, 583 - 120), new Vector2(1200, 583 - 120)));
+            _enemies.Add(EnemyFactory.CreateEnemy("Enemy_3", new Vector2(3470, 377 - 60), new Vector2(3800, 377 - 60)));
+            _enemies.Add(EnemyFactory.CreateEnemy("Enemy_3", new Vector2(6178, 141 - 64), new Vector2(6300, 141 - 64)));
+            // Additional Enemy_3 instances...
+            _enemies.Add(EnemyFactory.CreateEnemy("Enemy_3", new Vector2(9200, 492 - 64), new Vector2(9500, 492 - 64)));
+            _enemies.Add(EnemyFactory.CreateEnemy("Enemy_3", new Vector2(11000, 456 - 128), new Vector2(11500, 456 - 128)));
+
+            // Create Enemy_4 instances
+            _enemies.Add(EnemyFactory.CreateEnemy("Enemy_4", new Vector2(1600, 482 - 60), new Vector2(1720, 482 - 70)));
+            _enemies.Add(EnemyFactory.CreateEnemy("Enemy_4", new Vector2(5490, 219 - 90), new Vector2(5600, 219 - 90)));
+            _enemies.Add(EnemyFactory.CreateEnemy("Enemy_4", new Vector2(8000, 492 - 64), new Vector2(9000, 492 - 64)));
+
+            // Create Enemy_1 instances
+            _enemies.Add(EnemyFactory.CreateEnemy("Enemy_1", new Vector2(2047, 409 - 64), new Vector2(2000, 409 - 64)));
+            _enemies.Add(EnemyFactory.CreateEnemy("Enemy_1", new Vector2(7258, 460), new Vector2(7500, 460)));
+
+            // Add the Boss instance
+            _enemies.Add(EnemyFactory.CreateEnemy("Boss", new Vector2(12200, 485), new Vector2(12500, 485)));
         }
 
 

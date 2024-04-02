@@ -51,6 +51,10 @@
       <Compile Remove="Engine\Buttons\**" />
       <Compile Remove="Engine\Time\**" />
       <Compile Remove="Source\Unit\Status\PP.cs" />
+      <Compile Remove="Source\Unit\Enemies\Enemy_5.cs" />
+      <Compile Remove="Source\Screens\DeadScreen.cs" />
+      <Compile Remove="Source\Screens\PauseScreen.cs" />
+      <Compile Remove="Source\Screens\TitleScreen.cs" />
     </ItemGroup>
     <ItemGroup>
       <Content Include="..\..\..\..\..\..\.nuget\packages\monogame.extended.content.pipeline\3.8.0\contentFiles\any\netcoreapp3.1\CppNet.dll">
