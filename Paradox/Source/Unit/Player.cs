@@ -78,6 +78,7 @@ namespace Paradox
                 Singleton.Instance.PlayerHP = 0;
                 _currentState = _state.dead;
                 Singleton.Instance.PlayerSpeed = 0;
+                _position.Y = 750;
             }
         }
 

@@ -2,6 +2,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended;
 
 namespace Paradox
 {
@@ -45,8 +46,8 @@ namespace Paradox
             _patrolFrom = patrolFrom;
             _patrolTo = patrolTo;
             Random rd = new Random();
-            _hp = rd.Next(3, 7);
-            _damage = 1;
+            _hp = rd.Next(7, 10);
+            _damage = rd.Next(1,4);
 
             _currentColor = Color.White;
             _currentFadeTime = 0;

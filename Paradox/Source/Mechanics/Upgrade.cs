@@ -26,69 +26,61 @@ namespace Paradox
             _textures.Add("Upgrade_spd", Singleton.Instance.Content.Load<Texture2D>("Upgrade/Upgrade_spd")); // Use _key instead of "Upgrade"
         }
 
-        public void Update()
+       // Member variables to track the state of the mouse button between frames
+private bool wasLeftButtonDown = false;
+
+public void Update()
+{
+    var currentMouseState = Mouse.GetState();
+    var gamePadState = GamePad.GetState(PlayerIndex.One); // Assuming player one's controller
+
+    // Determine if the left mouse button was just released this frame
+    bool leftButtonJustReleased = wasLeftButtonDown && currentMouseState.LeftButton == ButtonState.Released;
+    
+    // Update the wasLeftButtonDown for the next frame
+    wasLeftButtonDown = currentMouseState.LeftButton == ButtonState.Pressed;
+
+    if (Singleton.Instance.PlayerCoin > 0 &&
+        // Existing position checks
+        (((Singleton.Instance.PlayerPos.X >= 1659 && Singleton.Instance.PlayerPos.X <= 1800) &&
+          (Singleton.Instance.PlayerPos.Y >= 225 && Singleton.Instance.PlayerPos.Y <= 230)) ||
+         ((Singleton.Instance.PlayerPos.X >= 4680 && Singleton.Instance.PlayerPos.X <= 4680 + 128) &&
+          (Singleton.Instance.PlayerPos.Y >= 285 && Singleton.Instance.PlayerPos.Y <= 295)) ||
+         ((Singleton.Instance.PlayerPos.X >= 11740 && Singleton.Instance.PlayerPos.X <= 11740 + 128) &&
+          (Singleton.Instance.PlayerPos.Y >= 320 && Singleton.Instance.PlayerPos.Y <= 327))))
+    {
+        if (currentMouseState.X >= 503 && currentMouseState.X <= 503 + 274 && currentMouseState.Y >= 284 &&
+            currentMouseState.Y <= 284 + 74)
         {
-            var currentMouseState = Mouse.GetState();
-            var gamePadState = GamePad.GetState(PlayerIndex.One); // Assuming player one's controller
-
-
-            Console.WriteLine(Singleton.Instance.PlayerPos.Y);
-
-            // Check if within upgrade area and either mouse clicked or Y button pressed
-            if (Singleton.Instance.PlayerCoin > 0 &&
-
-                ((Singleton.Instance.PlayerPos.X >= 1659 && Singleton.Instance.PlayerPos.X <= 1800) &&
-                 (Singleton.Instance.PlayerPos.Y >= 225 && Singleton.Instance.PlayerPos.Y <= 230))
-
-                ||
-
-                ((Singleton.Instance.PlayerPos.X >= 4680 && Singleton.Instance.PlayerPos.X <= 4680 + 128) &&
-
-                 (Singleton.Instance.PlayerPos.Y >= 285 && Singleton.Instance.PlayerPos.Y <= 295))
-                
-                ||
-
-                ((Singleton.Instance.PlayerPos.X >= 11740 && Singleton.Instance.PlayerPos.X <= 11740 + 128)  &&
-
-                 (Singleton.Instance.PlayerPos.Y >= 320 && Singleton.Instance.PlayerPos.Y <= 327))
-
-               )
-
+            _key = "Upgrade_atk";
+            if (leftButtonJustReleased)
             {
-
-                if (currentMouseState.X >= 503 && currentMouseState.X <= 503 + 274 && currentMouseState.Y >= 284 &&
-                    currentMouseState.Y <= 284 + 74)
-                {
-                    _key = "Upgrade_atk";
-                    if (_previousMouseState.LeftButton == ButtonState.Pressed &&
-                        currentMouseState.LeftButton == ButtonState.Released)
-                    {
-                        // Increment player attack only on a single click
-                        Singleton.Instance.PlayerAtk++;
-                    }
-                }
-                // Check for a single click on the speed upgrade button
-                else if (currentMouseState.X >= 503 && currentMouseState.X <= 503 + 274 && currentMouseState.Y >= 393 &&
-                         currentMouseState.Y <= 393 + 74)
-                {
-                    _key = "Upgrade_spd";
-                    if (_previousMouseState.LeftButton == ButtonState.Pressed &&
-                        currentMouseState.LeftButton == ButtonState.Released)
-                    {
-                        // Increment player speed only on a single click
-                        Singleton.Instance.PlayerSpeed+=0.001f;
-                    }
-                }
-                else
-                {
-                    _key = "Upgrade";
-                }
-            }
-            else
-            {
-                _key = "";
+                // Increment player attack only on a single click
+                Singleton.Instance.PlayerAtk++;
+                Singleton.Instance.PlayerCoin--;
             }
         }
+        else if (currentMouseState.X >= 503 && currentMouseState.X <= 503 + 274 && currentMouseState.Y >= 393 &&
+                 currentMouseState.Y <= 393 + 74)
+        {
+            _key = "Upgrade_spd";
+            if (leftButtonJustReleased)
+            {
+                // Increment player speed only on a single click
+                Singleton.Instance.PlayerSpeed += 0.001f;
+                Singleton.Instance.PlayerCoin--;
+            }
+        }
+        else
+        {
+            _key = "Upgrade";
+        }
+    }
+    else
+    {
+        _key = "";
+    }
+}
 
 
         public void Draw() // Added textureKey parameter
