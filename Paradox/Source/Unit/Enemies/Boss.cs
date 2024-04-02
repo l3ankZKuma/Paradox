@@ -53,7 +53,7 @@ namespace Paradox
             //I want handel null
             if (_enemyAnimation != null)
             {
-                _enemyAnimation[(int)_currentState].Draw(_isFacingRight,_position,gameTime,2.0f);
+                _enemyAnimation[(int)_currentState].Draw(_isFacingRight,_position,gameTime,2.0f,Color.White);
             }
         }
         

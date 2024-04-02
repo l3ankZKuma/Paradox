@@ -32,7 +32,7 @@ namespace Paradox
         
         public override void Draw(GameTime gametime)
         {
-            _merchantAnimation.Draw(true,_position,gametime,0.75f);
+            _merchantAnimation.Draw(true,_position,gametime,0.75f,Color.White);
         }
     }
 }

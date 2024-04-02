@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-
 namespace Paradox
 {
     public class Enemy : Entity
@@ -20,53 +19,62 @@ namespace Paradox
         protected Animation[] _enemyAnimation;
         protected _enemyState _currentState;
         protected Rectangle _enemyRectangle;
-
-        // Adding more properties for AI behavior
-        protected float _detectionRange = 250f; // Range within which enemy detects the player
-        protected float _attackRange = 50f; // Range within which enemy can attack
+        private bool _isAlive = true;
+        protected float _detectionRange = 250f;
+        protected float _attackRange = 50f;
         protected Vector2 _patrolFrom;
         protected Vector2 _patrolTo;
         protected float _patrolSpeed = 60f;
-        protected bool _patrollingTo = true; // Direction of patrol
+        protected bool _patrollingTo = true;
+        protected Color _color = Color.White;
+
+        // Color change upon damage
+        protected Color _currentColor;
+        protected float _colorFadeDuration = 0.5f;
+        protected float _currentFadeTime;
 
         protected CollisionManager _collisionManager;
-        
-        //cooldown
-        protected float _attackCooldown = 2.5f; // Time between attacks
+
+        protected float _attackCooldown =3.0f;
         protected float _currentAttackCooldown;
+
+        public bool IsAlive => _isAlive;
 
         public Enemy(Vector2 patrolFrom, Vector2 patrolTo)
         {
-            rd = new();
-            
             _patrolFrom = patrolFrom;
             _patrolTo = patrolTo;
-            
-            
-            //generate hp
-            _hp = rd.Next(3,5);
-            _damage =0;
-            
-            
-            //Cool down
-            _currentAttackCooldown = 2.5f;
+            Random rd = new Random();
+            _hp = rd.Next(3, 7);
+            _damage = 1;
+
+            _currentColor = Color.White;
+            _currentFadeTime = 0;
+
+            _currentAttackCooldown = _attackCooldown;
         }
 
         public override void Load()
         {
             _collisionManager = new CollisionManager();
             _currentState = _enemyState.Idle;
-            // Initialize animations and other loading logic here
-            
+            // Initialize animations and other resources here
         }
 
         public override void Update(GameTime gameTime)
         {
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            
+
             if (_currentAttackCooldown > 0)
             {
                 _currentAttackCooldown -= deltaTime;
+            }
+
+            if (_currentFadeTime > 0)
+            {
+                _currentFadeTime -= deltaTime;
+                float fadeAmount = _currentFadeTime / _colorFadeDuration;
+                _currentColor = Color.Lerp(Color.White, Color.Red, fadeAmount);
             }
 
             switch (_currentState)
@@ -82,14 +90,13 @@ namespace Paradox
                     break;
             }
 
-            // Basic gravity implementation
-            _enemyRectangle = new Rectangle((int)_position.X, (int)_position.Y, 128,64); // Assuming _texture represents current sprite
-
-            // Implement collision detection with the ground here to update _isOnGround
+            // Gravity and collision logic can be implemented here
+            _enemyRectangle = new Rectangle((int)_position.X, (int)_position.Y, 128, 64);
         }
 
-        protected void UpdateIdleState(float deltaTime)
+         protected void UpdateIdleState(float deltaTime)
         {
+            // Checks if the player is within detection range to switch to Walk state
             if (Vector2.Distance(_position, Singleton.Instance.PlayerPos) <= _detectionRange)
             {
                 _currentState = _enemyState.Walk;
@@ -102,7 +109,7 @@ namespace Paradox
                     if (_position.X < _patrolTo.X)
                     {
                         _position.X += _patrolSpeed * deltaTime;
-                        _isFacingRight = true; // Facing towards patrolTo
+                        _isFacingRight = true; // Assuming this indicates direction for animation
                     }
                     else
                     {
@@ -114,7 +121,7 @@ namespace Paradox
                     if (_position.X > _patrolFrom.X)
                     {
                         _position.X -= _patrolSpeed * deltaTime;
-                        _isFacingRight = false; // Facing towards patrolFrom
+                        _isFacingRight = false;
                     }
                     else
                     {
@@ -124,11 +131,10 @@ namespace Paradox
             }
         }
 
-
         protected void UpdateWalkState(float deltaTime)
         {
+            // Calculates distance to player and adjusts state accordingly
             float distanceToPlayer = Vector2.Distance(_position, Singleton.Instance.PlayerPos);
-
             if (distanceToPlayer > _detectionRange)
             {
                 _currentState = _enemyState.Idle;
@@ -139,48 +145,47 @@ namespace Paradox
             }
             else
             {
+                // Move towards the player along the X-axis only
                 Vector2 direction = Vector2.Normalize(Singleton.Instance.PlayerPos - _position);
                 _position.X += direction.X * _patrolSpeed * deltaTime;
-
-                // Update facing direction based on player's position
                 _isFacingRight = direction.X > 0;
             }
         }
-
-
-
         protected void UpdateAttackState(float deltaTime)
         {
-            float distanceToPlayer = Vector2.Distance(_position, Singleton.Instance.PlayerPos);
-
-            // Check if the player is still within attack range
-            if (distanceToPlayer <= _attackRange)
+            if (Vector2.Distance(_position, Singleton.Instance.PlayerPos) <= _attackRange)
             {
                 if (_currentAttackCooldown <= 0)
                 {
-                    // Attack logic
                     Singleton.Instance.PlayerHP -= _damage;
-
-                    // Reset cooldown timer
                     _currentAttackCooldown = _attackCooldown;
                 }
             }
             else
             {
-                // If the player has moved out of attack range, switch back to walking state to follow the player
                 _currentState = _enemyState.Walk;
             }
         }
 
-
         public override void Draw(GameTime gameTime)
         {
-            //I want handel null
-            if (_enemyAnimation != null)
+            if (_enemyAnimation != null && _isAlive)
             {
-                _enemyAnimation[(int)_currentState].Draw(_isFacingRight,_position,gameTime,1.0f);
+                _enemyAnimation[(int)_currentState].Draw(_isFacingRight, _position, gameTime, 1.0f, _currentColor);
             }
         }
 
+        public void TakeDamage()
+        {
+            _hp -= Singleton.Instance.PlayerAtk;
+            if (_hp <= 0)
+            {
+                _isAlive = false;
+            }
+            _currentColor = Color.Red;
+            _currentFadeTime = _colorFadeDuration;
+        }
+
+        public Rectangle HitBox => _enemyRectangle;
     }
 }

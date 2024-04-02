@@ -21,8 +21,11 @@ namespace Paradox
             _enemies= new List<Enemy>();
             _items = new List<Items>();
             _merchants = new List<Merchant>();
+            
             //Ememies position
             addEnemies();
+            Singleton.Instance.Enemies = _enemies;
+            
             
             //Items position
             addItems();
@@ -30,6 +33,7 @@ namespace Paradox
             
             //NPC position 
             addNPC();
+            
             
         }
 
@@ -66,19 +70,31 @@ namespace Paradox
 
         public void Update(GameTime gameTime)
         {
-            Singleton.Instance.PlayerPos = _player.Position;
+            Singleton.Instance.PlayerPos = _player.PlayerPos;
             
-            
+            //Items
+            for(int i=0;i<_items.Count;i++)
+            {
+                _items[i].Update(gameTime);
+            }
+
+            //NPC
             for(int i=0;i<_merchants.Count;i++)
             {
                 _merchants[i].Update(gameTime);
             }   
             
-            
-            
-            for(int i=0;i<_enemies.Count;i++)
+            //Enemies
+            for (int i = _enemies.Count - 1; i >= 0; i--)
             {
-                _enemies[i].Update(gameTime);
+                if (_enemies[i].IsAlive)
+                {
+                    _enemies[i].Update(gameTime);
+                }
+                else
+                {
+                    _enemies.RemoveAt(i);
+                }
             }
             
             

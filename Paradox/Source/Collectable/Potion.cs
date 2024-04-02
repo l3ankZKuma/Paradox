@@ -27,6 +27,14 @@ namespace Paradox
 
         public override void Update(GameTime gameTime)
         {
+            if (!_isCollected)
+            {
+                if (Singleton.Instance.PlayerCollisionBox.Intersects(new Rectangle((int)_position.X, (int)_position.Y, 32, 32)))
+                {
+                    Singleton.Instance.PlayerHP++;
+                    _isCollected = true;
+                }
+            }
             
         }
 
@@ -34,7 +42,7 @@ namespace Paradox
         {
             if (!_isCollected)
             {
-                _animation.Draw(true, _position, gameTime, 1.0f);
+                _animation.Draw(true, _position, gameTime, 1.0f, Color.White);
             }
             
         }
