@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 
@@ -10,12 +11,13 @@ namespace Paradox
     public class Coin : Items
     {
         
-        
+        SoundEffect _coinSound;
         
         public Coin(Vector2 POS)
         {
             _position = POS;
             _sprite= Singleton.Instance.Content.Load<Texture2D>("Items/coin_b");
+            _coinSound = Singleton.Instance.Content.Load<SoundEffect>("SoundEffect/Coin");
         }
 
 
@@ -31,6 +33,7 @@ namespace Paradox
             {
                 if (Singleton.Instance.PlayerCollisionBox.Intersects(new Rectangle((int)_position.X, (int)_position.Y, 32, 32)))
                 {
+                    _coinSound.Play();
                     Singleton.Instance.PlayerCoin++;
                     _isCollected = true;
                 }

@@ -1,5 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -13,11 +14,15 @@ namespace Paradox
         private _state _currentState;
         private Rectangle _playerRectangle;
         
+        private SoundEffect _slashSound;
+        private SoundEffect _deadSound;
+        
         private bool isAlive = true;
 
         // Status point
         private int _hp = 0;
         private bool _facingRight = true;
+        private bool _isOnGround;
         private const float Gravity = 1000.0f;
         private const float JumpStrength = -500.0f;
         private CollisionManager _collisionManager;
@@ -28,7 +33,7 @@ namespace Paradox
 
         public Player()
         {
-            // _position.X = 3500;
+            // _position.X = ;
             PATH = new string[]
             {
                 "Unit/Player/Samurai/Idle", "Unit/Player/Samurai/Walk", "Unit/Player/Samurai/Jump",
@@ -36,10 +41,14 @@ namespace Paradox
                 "Unit/Player/Samurai/Hurt"
             };
             _collisionManager = new CollisionManager();
+            
+            _slashSound = Singleton.Instance.Content.Load<SoundEffect>("SoundEffect/Sword_Slash_Sound_Effect_1");
+            _deadSound= Singleton.Instance.Content.Load<SoundEffect>("SoundEffect/deadSound");
         }
 
         public override void Load()
         {
+
             _sprite = new Texture2D[PATH.Length];
             for (int i = 0; i < PATH.Length; i++)
             {
@@ -78,6 +87,7 @@ namespace Paradox
                 _currentState = _state.dead;
                 Singleton.Instance.PlayerSpeed = 0;
                 _position.Y = 750;
+                _deadSound.Play();
             }
         }
 
@@ -106,6 +116,7 @@ namespace Paradox
 
             if (gamePadState.Buttons.X.Equals(ButtonState.Pressed) && _timeSinceLastStateChange >= AnimationDuration)
             {
+                _slashSound.Play(); 
                 Attack();
                 _currentState = _state.attack;
                 _timeSinceLastStateChange = 0f;

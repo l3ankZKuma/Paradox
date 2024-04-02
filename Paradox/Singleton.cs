@@ -2,8 +2,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
+
 
 namespace Paradox
 {
@@ -15,6 +17,7 @@ namespace Paradox
         private ContentManager _content;
         private GameTime _gameTime;
         private ScreenManager _screenManager;
+        private Song _bgm;
 
         private List<Enemy> _enemies;
 
@@ -143,11 +146,12 @@ namespace Paradox
         {
             get { return _playerCollisionBox; }
             set { _playerCollisionBox = value; }
+        }
 
-
-
-
-
+        public Song BGM
+        {
+            get { return _bgm; }
+            set { _bgm = value; }
         }
     }
 }

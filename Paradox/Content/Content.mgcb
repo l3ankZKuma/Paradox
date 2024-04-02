@@ -457,6 +457,66 @@
 /processorParam:TextureFormat=Color
 /build:PlayerComponent/Heath_life.png
 
+#begin Sound/Menu_BGM.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sound/Menu_BGM.mp3
+
+#begin Sound/Play_BGM_.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/Play_BGM_.wav
+
+#begin Sound/Play_BGM.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sound/Play_BGM.mp3
+
+#begin SoundEffect/Coin.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffect/Coin.wav
+
+#begin SoundEffect/deadSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffect/deadSound.wav
+
+#begin SoundEffect/Drink.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffect/Drink.wav
+
+#begin SoundEffect/hit.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffect/hit.wav
+
+#begin SoundEffect/lvUp.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffect/lvUp.wav
+
+#begin SoundEffect/off.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffect/off.wav
+
+#begin SoundEffect/Sword_Slash_Sound_Effect_1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffect/Sword_Slash_Sound_Effect_1.wav
+
 #begin Unit/Player/Samurai/Attack_1.png
 /importer:TextureImporter
 /processor:TextureProcessor

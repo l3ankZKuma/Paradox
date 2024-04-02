@@ -4,6 +4,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace Paradox;
 
@@ -28,12 +29,18 @@ public class PlayScreen : Screen
     {
         _world.Load();
         _ui.Load();
+        Singleton.Instance.BGM = Singleton.Instance.Content.Load<Song>("Sound/Play_BGM");
+
         // Load other resources specific to PlayScreen
     }
 
     public override void Update(GameTime gameTime)
     {
-        
+        if (Singleton.Instance.BGM != null && MediaPlayer.State != MediaState.Playing)
+        {
+            MediaPlayer.Play(Singleton.Instance.BGM);
+        }
+
 
         
         // Existing camera and world updates
@@ -47,7 +54,7 @@ public class PlayScreen : Screen
         // Transform the mouse position from screen to world coordinates
         _mousePositionInWorld = Vector2.Transform(new Vector2(mouseState.X, mouseState.Y), Matrix.Invert(_camera.ViewMatrix));
         
-         Console.WriteLine(_mousePositionInWorld);
+        Console.WriteLine(_mousePositionInWorld);
         
         Console.WriteLine(Singleton.Instance.PlayerCoin);
         

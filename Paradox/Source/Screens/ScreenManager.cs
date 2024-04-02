@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 
 namespace Paradox
 {
@@ -28,9 +29,12 @@ namespace Paradox
             {
                 
                 case GameScreenName.MenuScreen:
+                    MediaPlayer.Stop();
                     _currentGameScreen = new MenuScreen();
                     break;
                 case GameScreenName.PlayScreen:
+                    //i want to close old song
+                    MediaPlayer.Stop();
                     _currentGameScreen = new PlayScreen();
                     break;
                 case GameScreenName.PauseScreen:

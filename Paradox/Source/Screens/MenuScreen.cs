@@ -2,6 +2,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace Paradox
 {
@@ -29,10 +30,20 @@ namespace Paradox
             _startButton = Singleton.Instance.Content.Load<Texture2D>("Menu/Menu_BG_Start");
             _optionButton = Singleton.Instance.Content.Load<Texture2D>("Menu/Menu_BG_Option");
             _exitButton = Singleton.Instance.Content.Load<Texture2D>("Menu/Menu_BG_Exit");
+            Singleton.Instance.BGM = Singleton.Instance.Content.Load<Song>("Sound/Menu_BGM");
+
         }
 
         public override void Update(GameTime gameTime)
         {
+
+            if (Singleton.Instance.BGM != null && MediaPlayer.State != MediaState.Playing)
+            {
+                MediaPlayer.Play(Singleton.Instance.BGM);
+            }
+
+            
+            
             MouseState currentMouseState = Mouse.GetState();
 
             // Reset hover states

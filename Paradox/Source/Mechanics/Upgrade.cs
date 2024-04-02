@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic; // Use Generic Collections
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -12,11 +13,13 @@ namespace Paradox
         private Dictionary<string, Texture2D> _textures; // Use Dictionary instead of Hashtable
         private string _key;
         private MouseState _previousMouseState;
+        private SoundEffect _upgradeSound;
 
         public Upgrade()
         {
             _textures = new Dictionary<string, Texture2D>();
             _key = "";
+            _upgradeSound = Singleton.Instance.Content.Load<SoundEffect>("SoundEffect/lvUp");
         }
 
         public void Load()
@@ -55,6 +58,7 @@ public void Update()
             _key = "Upgrade_atk";
             if (leftButtonJustReleased)
             {
+                _upgradeSound.Play();
                 // Increment player attack only on a single click
                 Singleton.Instance.PlayerAtk++;
                 Singleton.Instance.PlayerCoin--;
@@ -66,6 +70,7 @@ public void Update()
             _key = "Upgrade_spd";
             if (leftButtonJustReleased)
             {
+                _upgradeSound.Play();
                 // Increment player speed only on a single click
                 Singleton.Instance.PlayerSpeed += 0.001f;
                 Singleton.Instance.PlayerCoin--;

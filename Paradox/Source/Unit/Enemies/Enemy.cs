@@ -1,5 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
@@ -38,6 +39,9 @@ namespace Paradox
 
         protected float _attackCooldown =3.0f;
         protected float _currentAttackCooldown;
+        
+        private SoundEffect _playerAttackedSound;
+        
 
         public bool IsAlive => _isAlive;
 
@@ -47,12 +51,14 @@ namespace Paradox
             _patrolTo = patrolTo;
             Random rd = new Random();
             _hp = rd.Next(7, 10);
-            _damage = 0;
+            _damage = rd.Next(2,4);
 
             _currentColor = Color.White;
             _currentFadeTime = 0;
-
             _currentAttackCooldown = _attackCooldown;
+            
+            _playerAttackedSound = Singleton.Instance.Content.Load<SoundEffect>("SoundEffect/off");
+
         }
 
         public override void Load()
@@ -136,9 +142,30 @@ namespace Paradox
         {
             // Calculates distance to player and adjusts state accordingly
             float distanceToPlayer = Vector2.Distance(_position, Singleton.Instance.PlayerPos);
-            if (distanceToPlayer > _detectionRange)
+
+            // Player position relative to patrol area
+            bool isPlayerWithinPatrolArea = Singleton.Instance.PlayerPos.X >= _patrolFrom.X && Singleton.Instance.PlayerPos.X <= _patrolTo.X;
+
+            if (distanceToPlayer > _detectionRange || !isPlayerWithinPatrolArea)
             {
-                _currentState = _enemyState.Idle;
+                // Instead of immediately switching to Idle, move towards the opposite boundary of the patrol area
+                if (_patrollingTo)
+                {
+                    _position.X -= _patrolSpeed * deltaTime;
+                    if (_position.X <= _patrolFrom.X)
+                    {
+                        _patrollingTo = false; // Switch direction once reaching the boundary
+                    }
+                }
+                else
+                {
+                    _position.X += _patrolSpeed * deltaTime;
+                    if (_position.X >= _patrolTo.X)
+                    {
+                        _patrollingTo = true; // Switch direction once reaching the boundary
+                    }
+                }
+                _currentState = _enemyState.Walk; // Keep the enemy in Walk state but moving towards the return point
             }
             else if (distanceToPlayer <= _attackRange)
             {
@@ -148,18 +175,26 @@ namespace Paradox
             {
                 // Move towards the player along the X-axis only
                 Vector2 direction = Vector2.Normalize(Singleton.Instance.PlayerPos - _position);
-                _position.X += direction.X * _patrolSpeed * deltaTime;
+                float newXPosition = _position.X + direction.X * _patrolSpeed * deltaTime;
+
+                // Clamp the new position within the patrol range
+                newXPosition = Math.Max(_patrolFrom.X, Math.Min(newXPosition, _patrolTo.X));
+
+                _position.X = newXPosition;
                 _isFacingRight = direction.X > 0;
             }
         }
+
         protected void UpdateAttackState(float deltaTime)
         {
             if (Vector2.Distance(_position, Singleton.Instance.PlayerPos) <= _attackRange)
             {
                 if (_currentAttackCooldown <= 0)
                 {
+                    _playerAttackedSound.Play();
                     Singleton.Instance.PlayerHP -= _damage;
                     _currentAttackCooldown = _attackCooldown;
+                    
                 }
             }
             else
@@ -189,18 +224,6 @@ namespace Paradox
 
         public Rectangle HitBox => _enemyRectangle;
         
-        
-        //gravity
-        // private void ApplyPhysics(float deltaTime)
-        // {
-        //     if (!_isOnGround)
-        //     {
-        //         _velocity.Y += Gravity * deltaTime;
-        //     }
-        //     else
-        //     {
-        //         _velocity.Y = 0;
-        //     }
-        // }
+
     }
 }
