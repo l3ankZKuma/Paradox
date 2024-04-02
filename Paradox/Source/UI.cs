@@ -44,7 +44,7 @@ namespace Paradox
         {
             _hp.Draw(gameTime);
             _upgrade.Draw();
-            if(Singleton.Instance.PlayerHP <= 0 || Singleton.Instance.PlayerPos.Y >750)
+            if(Singleton.Instance.PlayerHP <= 0 /*|| Singleton.Instance.PlayerPos.Y >750*/)
             {
                 Singleton.Instance.SpriteBatch.Draw(_deathScreen, new Rectangle(1280/2-250, 720/2-250, 500, 500), Color.White);
 

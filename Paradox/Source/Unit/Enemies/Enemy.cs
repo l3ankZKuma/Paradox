@@ -47,7 +47,7 @@ namespace Paradox
             _patrolTo = patrolTo;
             Random rd = new Random();
             _hp = rd.Next(7, 10);
-            _damage = rd.Next(1,4);
+            _damage = 0;
 
             _currentColor = Color.White;
             _currentFadeTime = 0;
@@ -188,5 +188,19 @@ namespace Paradox
         }
 
         public Rectangle HitBox => _enemyRectangle;
+        
+        
+        //gravity
+        // private void ApplyPhysics(float deltaTime)
+        // {
+        //     if (!_isOnGround)
+        //     {
+        //         _velocity.Y += Gravity * deltaTime;
+        //     }
+        //     else
+        //     {
+        //         _velocity.Y = 0;
+        //     }
+        // }
     }
 }

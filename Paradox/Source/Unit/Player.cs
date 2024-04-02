@@ -18,7 +18,6 @@ namespace Paradox
         // Status point
         private int _hp = 0;
         private bool _facingRight = true;
-        private bool _isOnGround;
         private const float Gravity = 1000.0f;
         private const float JumpStrength = -500.0f;
         private CollisionManager _collisionManager;
@@ -29,7 +28,7 @@ namespace Paradox
 
         public Player()
         {
-            //_position.X = 5191;
+            // _position.X = 3500;
             PATH = new string[]
             {
                 "Unit/Player/Samurai/Idle", "Unit/Player/Samurai/Walk", "Unit/Player/Samurai/Jump",
@@ -73,7 +72,7 @@ namespace Paradox
             
             
             
-            if (Singleton.Instance.PlayerHP <= 0  || Singleton.Instance.PlayerPos.Y >750)
+            if (Singleton.Instance.PlayerHP <= 0  /*|| Singleton.Instance.PlayerPos.Y >750*/)
             {
                 Singleton.Instance.PlayerHP = 0;
                 _currentState = _state.dead;

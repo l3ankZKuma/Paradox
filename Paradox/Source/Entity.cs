@@ -24,8 +24,8 @@ namespace Paradox
         protected Random rd;
         protected int _hp;
         protected int _damage;
-        
-        
+
+        protected bool _isOnGround = true;
         protected bool _isFacingRight=true;
         
         

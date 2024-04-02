@@ -163,17 +163,24 @@ namespace Paradox
             _items.Add(new Potion(new Vector2(2280,420)));
             _items.Add(new Potion(new Vector2(3275,311)));
             _items.Add(new Potion(new Vector2(5191,312)));
-            
+            _items.Add(new Coin(new Vector2(5902,215)));
+            _items.Add(new Potion(new Vector2(6674,184)));
+            _items.Add(new Coin(new Vector2(4319,435)));
+            _items.Add(new Coin(new Vector2(7816,211)));
+            _items.Add(new Potion(new Vector2(7900,211)));
+            _items.Add(new Coin(new Vector2(10090,229)));
+            _items.Add(new Coin(new Vector2(3035,85)));
+
         }
 
         public void addEnemies()
         {
-            _enemies.Add(new Enemy_1(new Vector2(190,578-110),new Vector2(300,578-110)));
+            //_enemies.Add(new Enemy_1(new Vector2(190,578-110),new Vector2(300,578-110)));
             _enemies.Add(new Enemy_2(new Vector2(254,276),new Vector2(270,276)));
             _enemies.Add(new Enemy_3(new Vector2(1000,583-120),new Vector2(1200,583-120)));
             _enemies.Add(new Enemy_4(new Vector2(1600, 482-60), new Vector2(1720, 482-70)));
             
-            _enemies.Add(new Enemy_1(new Vector2(2047,409-64),new Vector2(2300,409-64)));
+            _enemies.Add(new Enemy_1(new Vector2(2047,409-64),new Vector2(2000,409-64)));
             _enemies.Add(new Enemy_2(new Vector2(2500,377-60),new Vector2(3000,377-60)));
             _enemies.Add(new Enemy_3(new Vector2(3470,377-60),new Vector2(3800,377-60)));
             _enemies.Add(new Enemy_4(new Vector2(5490,219-90),new Vector2(5600,219-90)));
