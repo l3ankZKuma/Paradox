@@ -7,6 +7,7 @@ namespace Paradox
 {
     class World
     {
+        // Declare variables for the player, enemies, map, items, and merchants
         private Player _player;
         private List<Enemy> _enemies;
         private Map _map;

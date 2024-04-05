@@ -24,6 +24,7 @@
         <None Remove="Content\PlayerComponent\Hearth_life.png" />
         <None Remove="Engine\Buttons\**" />
         <None Remove="Engine\Time\**" />
+        <None Remove="What\**" />
     </ItemGroup>
     <ItemGroup>
         <EmbeddedResource Include="Icon.ico"/>
@@ -33,6 +34,7 @@
         <EmbeddedResource Remove="Content\Map\**" />
         <EmbeddedResource Remove="Engine\Buttons\**" />
         <EmbeddedResource Remove="Engine\Time\**" />
+        <EmbeddedResource Remove="What\**" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="LDtkMonogame" Version="1.2.0" />
@@ -55,6 +57,7 @@
       <Compile Remove="Source\Screens\DeadScreen.cs" />
       <Compile Remove="Source\Screens\PauseScreen.cs" />
       <Compile Remove="Source\Screens\TitleScreen.cs" />
+      <Compile Remove="What\**" />
     </ItemGroup>
     <ItemGroup>
       <Content Include="..\..\..\..\..\..\.nuget\packages\monogame.extended.content.pipeline\3.8.0\contentFiles\any\netcoreapp3.1\CppNet.dll">

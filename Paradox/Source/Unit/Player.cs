@@ -6,8 +6,10 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Paradox
 {
+    // Player class inherits from Entity class
     public class Player : Entity
     {
+        // Declare variables
         private Vector2 _velocity;
         private string[] PATH;
         private Animation[] _playerAnimation;
@@ -31,9 +33,10 @@ namespace Paradox
         private const float AnimationDuration = 1.0f;
         private GamePadState _previousGamePadState;
 
+        // Player constructor
         public Player()
         {
-
+            // Initialize variables
             PATH = new string[]
             {
                 "Unit/Player/Samurai/Idle", "Unit/Player/Samurai/Walk", "Unit/Player/Samurai/Jump",
@@ -46,15 +49,17 @@ namespace Paradox
             _deadSound= Singleton.Instance.Content.Load<SoundEffect>("SoundEffect/deadSound");
         }
 
+        // Load method
         public override void Load()
         {
-
+            // Load sprites
             _sprite = new Texture2D[PATH.Length];
             for (int i = 0; i < PATH.Length; i++)
             {
                 _sprite[i] = Singleton.Instance.Content.Load<Texture2D>(PATH[i]);
             }
 
+            // Load animations
             _playerAnimation = new Animation[]
             {
                 new Animation(_sprite[0], 768 / 6, 128, 0.5f),
@@ -67,8 +72,10 @@ namespace Paradox
             };
         }
 
+        // Update method
         public override void Update(GameTime gameTime)
         {
+            // Update player rectangle
             _playerRectangle = new Rectangle((int)_position.X, (int)_position.Y, 64, 128);
             
             Singleton.Instance.PlayerCollisionBox = _playerRectangle;
@@ -78,9 +85,7 @@ namespace Paradox
             ApplyPhysics((float)gameTime.ElapsedGameTime.TotalSeconds);
             CheckCollisions();
             
-            
-            
-            
+            // Check if player is dead
             if (Singleton.Instance.PlayerHP <= 0  || Singleton.Instance.PlayerPos.Y >750)
             {
                 Singleton.Instance.PlayerHP = 0;
@@ -91,6 +96,7 @@ namespace Paradox
             }
         }
 
+        // Handle input method
         private void HandleInput()
         {
             var gamePadState = GamePad.GetState(PlayerIndex.One);
@@ -100,6 +106,7 @@ namespace Paradox
             float deadzone = 0.25f;
             float deltaX = gamePadState.ThumbSticks.Left.X * speed;
 
+            // Handle player movement
             if (Math.Abs(deltaX) > deadzone)
             {
                 _position.X += deltaX * Singleton.Instance.PlayerSpeed;
@@ -114,6 +121,7 @@ namespace Paradox
                 _currentState = _state.idle;
             }
 
+            // Handle player attack
             if (gamePadState.Buttons.X.Equals(ButtonState.Pressed) && _timeSinceLastStateChange >= AnimationDuration)
             {
                 _slashSound.Play(); 
@@ -122,6 +130,7 @@ namespace Paradox
                 _timeSinceLastStateChange = 0f;
             }
 
+            // Handle player jump
             if (gamePadState.Buttons.A.Equals(ButtonState.Pressed) && _isOnGround)
             {
                 _velocity.Y = JumpStrength;
@@ -130,12 +139,14 @@ namespace Paradox
                 _timeSinceLastStateChange = 0f;
             }
 
+            // Handle player idle state
             if (Math.Abs(deltaX) <= deadzone && !_currentState.Equals(_state.jump) && !_currentState.Equals(_state.attack))
             {
                 _currentState = _state.idle;
             }
         }
 
+        // Attack method
         private void Attack()
         {
             // Define the attack range
@@ -146,6 +157,7 @@ namespace Paradox
                 _playerRectangle.Height
             );
 
+            // Check if enemy is in attack range
             foreach (var enemy in Singleton.Instance.Enemies) // Assuming Singleton.Instance.Enemies holds all enemy instances
             {
                 if (attackRange.Intersects(enemy.HitBox)) // Assuming enemy has a public HitBox property
@@ -155,8 +167,10 @@ namespace Paradox
             }
         }
 
+        // Apply physics method
         private void ApplyPhysics(float deltaTime)
         {
+            // Apply gravity
             if (!_isOnGround)
             {
                 _velocity.Y += Gravity * deltaTime;
@@ -164,16 +178,19 @@ namespace Paradox
 
             _position += _velocity * deltaTime;
 
+            // Reset velocity if on ground
             if (_isOnGround)
             {
                 _velocity.Y = 0;
             }
         }
 
+        // Check collisions method
         private void CheckCollisions()
         {
             _isOnGround = false;
 
+            // Check if player is on ground
             foreach (var rect in _collisionManager.CollisionRectangles)
             {
                 if (_playerRectangle.Intersects(rect))
@@ -186,14 +203,15 @@ namespace Paradox
             }
         }
 
+        // Draw method
         public override void Draw(GameTime gameTime)
         {
+            // Draw player animation
             if (_playerAnimation != null )
             {
                 _playerAnimation[(int)_currentState].Draw(_facingRight, _position, gameTime, 1.0f, Color.White);
             }
         }
-        
         
         //Singleton
         public Vector2 PlayerPos
