@@ -10,6 +10,7 @@ namespace Paradox
         public Boss(Vector2 patrolFrom, Vector2 patrolTo) : base(patrolFrom,patrolTo)
         {
             _hp = 20;
+            _damage = 5;
             PATH = new string[]
             {
                 "Boss_2/Walk_Boss", "Boss_2/Walk_Boss","Boss_2/Attack_Boss"

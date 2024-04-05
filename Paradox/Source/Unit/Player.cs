@@ -33,7 +33,7 @@ namespace Paradox
 
         public Player()
         {
-            // _position.X = ;
+             _position.X = 12000;
             PATH = new string[]
             {
                 "Unit/Player/Samurai/Idle", "Unit/Player/Samurai/Walk", "Unit/Player/Samurai/Jump",
@@ -193,8 +193,6 @@ namespace Paradox
                 _playerAnimation[(int)_currentState].Draw(_facingRight, _position, gameTime, 1.0f, Color.White);
             }
         }
-        
-        
         
         
         //Singleton
