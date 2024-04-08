@@ -36,7 +36,7 @@ namespace Paradox
         // Player constructor
         public Player()
         {
-            // Initialize variables
+            // Initialize variable
             PATH = new string[]
             {
                 "Unit/Player/Samurai/Idle", "Unit/Player/Samurai/Walk", "Unit/Player/Samurai/Jump",

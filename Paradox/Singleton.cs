@@ -25,7 +25,7 @@ namespace Paradox
         private int _playerHP = 5;
         private float _playerSpeed = 0.015f;
         private int _playerAtk = 1;
-        private int _playerCoin = 1;
+        private int _playerCoin = 0;
         private Rectangle _playerCollisionBox;
 
         private Game _game { get; set; }
@@ -34,6 +34,9 @@ namespace Paradox
         private MouseState _mouseState;
 
         private Vector2 _playerPos;
+        
+        
+
 
         // Static property to get the instance
         public static Singleton Instance
@@ -151,5 +154,7 @@ namespace Paradox
             get { return _bgm; }
             set { _bgm = value; }
         }
+        
+  
     }
 }

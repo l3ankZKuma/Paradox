@@ -133,6 +133,12 @@
 /processorParam:TextureFormat=Color
 /build:Boss_2/Attack_Boss.png
 
+#begin Boss_2/victory_sound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Boss_2/victory_sound.wav
+
 #begin Boss_2/Walk_Boss.png
 /importer:TextureImporter
 /processor:TextureProcessor

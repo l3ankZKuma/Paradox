@@ -1,5 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Paradox
@@ -9,8 +10,8 @@ namespace Paradox
 
         public Boss(Vector2 patrolFrom, Vector2 patrolTo) : base(patrolFrom,patrolTo)
         {
-            _hp = 50;
-            _damage = 5;
+            _hp = 40;
+            _damage = 4;
             PATH = new string[]
             {
                 "Boss_2/Walk_Boss", "Boss_2/Walk_Boss","Boss_2/Attack_Boss"
@@ -45,7 +46,8 @@ namespace Paradox
         {
             
             _enemyRectangle = new Rectangle((int)_position.X, (int)_position.Y, 128, 128);
-            
+
+
             base.Update(gameTime);
         }
         
@@ -55,7 +57,7 @@ namespace Paradox
             //I want handel null
             if (_enemyAnimation != null)
             {
-                _enemyAnimation[(int)_currentState].Draw(_isFacingRight,_position,gameTime,2.0f,Color.White);
+                _enemyAnimation[(int)_currentState].Draw(_isFacingRight,_position,gameTime,2.0f,_currentColor);
             }
         }
         

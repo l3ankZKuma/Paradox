@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Paradox
@@ -14,6 +15,9 @@ namespace Paradox
         private List<Items> _items;
         private List<Merchant> _merchants;
         
+        SoundEffect _victorySound;
+
+        
 
         public World()
         {
@@ -22,6 +26,8 @@ namespace Paradox
             _enemies= new List<Enemy>();
             _items = new List<Items>();
             _merchants = new List<Merchant>();
+            
+            _victorySound = Singleton.Instance.Content.Load<SoundEffect>("Boss_2/victory_sound");
             
             //Ememies position
             addEnemies();
@@ -88,6 +94,12 @@ namespace Paradox
             //Enemies
             for (int i = _enemies.Count - 1; i >= 0; i--)
             {
+                if (!_enemies[_enemies.Count-1].IsAlive)
+                {
+                    _victorySound.Play();
+                    Singleton.Instance.PlayerSpeed = 0;
+                }
+
                 if (_enemies[i].IsAlive)
                 {
                     _enemies[i].Update(gameTime);
@@ -98,6 +110,7 @@ namespace Paradox
                 }
             }
             
+   
             
             _player.Update(gameTime);
             

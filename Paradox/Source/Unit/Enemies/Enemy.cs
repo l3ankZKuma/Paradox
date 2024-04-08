@@ -21,7 +21,7 @@ namespace Paradox
         protected Animation[] _enemyAnimation;
         protected _enemyState _currentState;
         protected Rectangle _enemyRectangle;
-        private bool _isAlive = true;
+        protected bool _isAlive = true;
         protected float _detectionRange = 250f;
         protected float _attackRange = 50f;
         protected Vector2 _patrolFrom;
